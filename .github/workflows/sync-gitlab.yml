@@ -16,19 +16,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Crear proyecto en GitLab (si no existe)
-        run: |
-          curl --request POST --header "PRIVATE-TOKEN: glpat-sXfNAaa1sVGkW5z3ktmF1GM6MQpvOjEKdTpxbTlxaA8.01.1700rf7mz" \
-          "https://gitlab.com/api/v4/projects" \
-          --data "name=versionamiento-web" || true
-
       - name: Push to GitLab
         run: |
+          # 1. Configuramos Git
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          glpat-sXfNAaa1sVGkW5z3ktmF1GM6MQpvOjEKdTpxbTlxaA8.01.1700rf7mz
-          git remote add gitlab https://oauth2:glpat-TU_TOKEN_AQUI@gitlab.com/Jose5273/versionamiento-web.git
+          # 2. Añadimos el remoto con tu token temporal
+          git remote add gitlab https://oauth2:glpat-sXfNAaa1sVGkW5z3ktmF1GM6MQpvOjEKdTpxbTlxaA8.01.1700rf7mz@gitlab.com/Jose5273/versionamiento-web.git
           
+          # 3. Hacemos el push de todas las ramas y tags
           git push gitlab --force --prune "refs/remotes/origin/*:refs/heads/*"
           git push gitlab --force --tags
