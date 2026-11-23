@@ -18,7 +18,7 @@ jobs:
 
       - name: Crear proyecto en GitLab (si no existe)
         run: |
-          curl --request POST --header "PRIVATE-TOKEN: glpat-TU_TOKEN_AQUI" \
+          curl --request POST --header "PRIVATE-TOKEN: glpat-sXfNAaa1sVGkW5z3ktmF1GM6MQpvOjEKdTpxbTlxaA8.01.1700rf7mz" \
           "https://gitlab.com/api/v4/projects" \
           --data "name=versionamiento-web" || true
 
@@ -27,7 +27,7 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          glpat-dWfRcvbuejXemhxSn3bWfGM6MQpvOjEKdTpxbTlxaA8.01.170xojhn7
+          glpat-sXfNAaa1sVGkW5z3ktmF1GM6MQpvOjEKdTpxbTlxaA8.01.1700rf7mz
           git remote add gitlab https://oauth2:glpat-TU_TOKEN_AQUI@gitlab.com/Jose5273/versionamiento-web.git
           
           git push gitlab --force --prune "refs/remotes/origin/*:refs/heads/*"
