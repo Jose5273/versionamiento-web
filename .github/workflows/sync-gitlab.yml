@@ -21,8 +21,12 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          # Aquí usamos la variable secreta en lugar del token escrito
-          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/Jose5273/versionamiento-web.git
+          # 1. Limpiamos el token (quitamos espacios y saltos de línea ocultos)
+          CLEAN_TOKEN=$(echo "${{ secrets.GITLAB_TOKEN }}" | tr -d '[:space:]')
           
+          # 2. Usamos el token limpio para el remoto
+          git remote add gitlab https://oauth2:${CLEAN_TOKEN}@gitlab.com/Jose5273/versionamiento-web.git
+          
+          # 3. Hacemos el push
           git push gitlab --force --prune "refs/remotes/origin/*:refs/heads/*"
           git push gitlab --force --tags
