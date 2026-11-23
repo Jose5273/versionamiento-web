@@ -27,7 +27,7 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          glpat-3JH5nf2LIJ_CdaLgbcAOjWM6MQpvOjEKdTpxbTlxaA8.01.171fs9to3
+          glpat-dWfRcvbuejXemhxSn3bWfGM6MQpvOjEKdTpxbTlxaA8.01.170xojhn7
           git remote add gitlab https://oauth2:glpat-TU_TOKEN_AQUI@gitlab.com/Jose5273/versionamiento-web.git
           
           git push gitlab --force --prune "refs/remotes/origin/*:refs/heads/*"
