@@ -17,15 +17,19 @@ jobs:
           fetch-depth: 0
 
       - name: Push to GitLab
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          # 1. Limpiamos el token (quitamos espacios y saltos de línea ocultos)
-          CLEAN_TOKEN=$(echo "${{ secrets.GITLAB_TOKEN }}" | tr -d '[:space:]')
+          # 1. Añadimos el remoto SIN el token
+          git remote add gitlab https://gitlab.com/Jose5273/versionamiento-web.git
           
-          # 2. Usamos el token limpio para el remoto
-          git remote add gitlab https://oauth2:${CLEAN_TOKEN}@gitlab.com/Jose5273/versionamiento-web.git
+          # 2. Le decimos a Git que guarde el token en su "llave de acceso" temporal
+          # (oauth2 es el usuario correcto para tokens de GitLab)
+          git config --global credential.helper store
+          echo "https://oauth2:${GITLAB_TOKEN}@gitlab.com" > ~/.git-credentials
           
           # 3. Hacemos el push
           git push gitlab --force --prune "refs/remotes/origin/*:refs/heads/*"
