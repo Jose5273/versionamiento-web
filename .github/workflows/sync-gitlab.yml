@@ -16,13 +16,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Diagnóstico del Token
-        env:
-          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
-        run: |
-          echo "La longitud del token es: ${#GITLAB_TOKEN}"
-          echo "El token empieza por: ${GITLAB_TOKEN:0:4}"
-          
       - name: Push to GitLab
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
@@ -30,8 +23,9 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          # Usamos la URL con el token limpio
+          # Añadimos el remoto usando la variable de entorno
           git remote add gitlab "https://oauth2:${GITLAB_TOKEN}@gitlab.com/Jose5273/versionamiento-web.git"
           
+          # Subimos todas las ramas
           git push gitlab --force --prune "refs/remotes/origin/*:refs/heads/*"
           git push gitlab --force --tags
