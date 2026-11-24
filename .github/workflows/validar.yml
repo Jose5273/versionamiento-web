@@ -1,34 +1,63 @@
+
+# Nombre del flujo de trabajo que aparecerá en GitHub Actions.
 name: Validar compilación
 
+# Define los eventos que activarán este flujo.
 on:
+
+  # Se ejecuta cuando se crea o actualiza un Pull Request cuyo destino sea alguna de estas ramas.
   pull_request:
     branches: [develop, test, main]
+
+  # Permite ejecutar el flujo manualmente desde GitHub Actions.
   workflow_dispatch:
 
+# Define los permisos que tendrá este flujo de trabajo.
 permissions:
+  # Solo permite leer el contenido del repositorio.
+  # No permite modificar archivos ni subir cambios.
   contents: read
 
+# Aquí se definen los trabajos que realizará el flujo.
 jobs:
+
+  # Nombre del trabajo encargado de validar la compilación.
   build:
+
+    # Nombre que aparecerá en la interfaz de GitHub Actions.
     name: build
+
+    # Sistema operativo de la máquina virtual.
     runs-on: ubuntu-latest
+
+    # Lista de pasos que se ejecutarán en orden.
     steps:
+
+      # PASO 1: Descargar el código del repositorio.
       - name: Descargar el código
         uses: actions/checkout@v4
 
+      # PASO 2: Instalar y configurar pnpm versión 10. pnpm permite administrar las dependencias del proyecto.
       - name: Instalar pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
 
+      # PASO 3: Configurar Node.js versión 22.
+      # También habilita la caché de las dependencias de pnpm para acelerar futuras ejecuciones.
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
 
+      # PASO 4: Instalar las dependencias del proyecto.
+      # --frozen-lockfile evita modificar el archivo de bloqueo y garantiza que se respeten las versiones registradas.
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
+      # PASO 5: Compilar el sitio web.
+      # Ejecuta el script "build" definido en package.json.
+      # Si la compilación falla, el trabajo se marcará como fallido.
       - name: Compilar el sitio
         run: pnpm build
