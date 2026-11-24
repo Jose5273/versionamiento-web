@@ -1,25 +1,64 @@
+
+# Define la imagen de Docker que utilizará GitLab Runner.
+# Node.js 22 proporciona el entorno necesario para ejecutar el proyecto.
 image: node:22
 
+# Define las etapas que tendrá el pipeline.
+# En este caso, solamente existe la etapa de pruebas.
 stages:
   - test
 
+# Configura la caché para reutilizar archivos entre ejecuciones.
 cache:
+  # Define una clave para identificar la caché.
+  # Si cambia pnpm-lock.yaml, se genera una clave diferente.
   key:
     files:
       - pnpm-lock.yaml
+
+  # Indica qué directorio se almacenará en la caché.
+  # Aquí se guardan los paquetes descargados por pnpm.
   paths:
     - .pnpm-store
 
+# Define un trabajo llamado test.
+# Este trabajo ejecuta las pruebas y construye el proyecto.
 test:
+
+  # Asigna este trabajo a la etapa test.
   stage: test
+
+  # Ejecuta estas instrucciones antes de comenzar el script principal.
   before_script:
+
+    # Habilita Corepack para administrar gestores de paquetes.
     - corepack enable
+
+    # Prepara y activa pnpm en su versión principal 9.
     - corepack prepare pnpm@9 --activate
+
+    # Configura el directorio donde pnpm almacenará los paquetes descargados.
     - pnpm config set store-dir .pnpm-store
+
+    # Instala las dependencias respetando exactamente el archivo de bloqueo.
+    # Si package.json y pnpm-lock.yaml no coinciden, la instalación falla.
     - pnpm install --frozen-lockfile
+
+  # Define las instrucciones principales del trabajo.
   script:
+
+    # Ejecuta las pruebas automatizadas definidas en package.json.
     - pnpm test
+
+    # Construye la versión de producción del proyecto.
     - pnpm run build
+
+  # Define las condiciones que permiten ejecutar este trabajo.
   rules:
+
+    # Ejecuta el trabajo cuando la rama actual se llama test.
     - if: $CI_COMMIT_BRANCH == "test"
+
+    # También ejecuta el trabajo cuando se crea una solicitud de fusión
+    # cuyo destino sea la rama test o main.
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "test" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main")
