@@ -1,0 +1,110 @@
+/* Estilos propios del componente BranchModelBadges (contraste WCAG AA). */
+
+.branch-models {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f8f9fb;
+}
+
+.branch-models .bm-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.branch-models .bm-item {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.75rem 0.85rem;
+}
+
+.branch-models .bm-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.branch-models .bm-nombre {
+  font-weight: 700;
+  color: #111827;
+  font-size: 0.96rem;
+}
+
+.branch-models .bm-pill {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.branch-models .bm-pill.bm-pill-top {
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
+.branch-models .bm-tooltip-wrap {
+  position: relative;
+}
+
+.branch-models .bm-trigger {
+  background: #eef3fe;
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+  border-radius: 4px;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.branch-models .bm-trigger:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+.branch-models .bm-tooltip {
+  display: none;
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 6px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.branch-models .bm-item:hover .bm-tooltip,
+.branch-models .bm-item:focus-within .bm-tooltip,
+.branch-models .bm-item.tooltip-abierto .bm-tooltip {
+  display: block;
+}
+
+.branch-models .bm-chart {
+  margin: 0.5rem 0 0;
+}
+
+.branch-models .bm-chart svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.branch-models .bm-nota {
+  margin-top: 0.45rem;
+  font-size: 0.84rem;
+  color: #4b5563;
+}

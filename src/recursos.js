@@ -1,109 +1,162 @@
 import './styles/style.css';
+import './styles/recursos.css';
+import './styles/top-commands.css';
+import './styles/ci-calculator.css';
+import './styles/callout.css';
+import './styles/command-level.css';
 import { renderizarNavbar, renderizarFooter } from './components/layout.js';
+import commandsTop10 from './data/commands-top10.json';
+import commandsAll from './data/commands-all.json';
+import { renderTopCommands } from './components/TopCommands.js';
+import { renderCICalculator } from './components/CICalculator.js';
+import { renderCallout } from './components/Callout.js';
+import { renderCommandLevel } from './components/CommandLevel.js';
+import { renderQrDrive } from './components/QrDrive.js';
+
+export const COMANDOS_GIT = [
+  { cmd: 'git clone <url>', categoria: 'Remotos', desc: 'Clona el repositorio remoto completo con su historial.' },
+  { cmd: 'git switch -c <rama>', categoria: 'Ramas', desc: 'Crea y cambia a una rama aislada de trabajo.' },
+  { cmd: 'git status -s', categoria: 'Cambios', desc: 'Muestra en formato corto los archivos modificados o sin seguimiento.' },
+  { cmd: 'git add .', categoria: 'Cambios', desc: 'Envía todos los cambios al área de preparación (Staging).' },
+  { cmd: 'git commit -m "feat: mensaje"', categoria: 'Cambios', desc: 'Registra una instantánea usando Conventional Commits.' },
+  { cmd: 'git push -u origin <rama>', categoria: 'Remotos', desc: 'Publica la rama local en el repositorio remoto.' },
+  { cmd: 'git fetch --all', categoria: 'Remotos', desc: 'Descarga referencias y ramas remotas sin alterar el código local.' },
+  { cmd: 'git pull --rebase origin develop', categoria: 'Ramas', desc: 'Actualiza la rama actual manteniendo un historial limpio y lineal.' },
+  { cmd: 'git diff', categoria: 'Cambios', desc: 'Muestra línea por línea los cambios aún no confirmados.' },
+  { cmd: 'git log --oneline --graph -n 10', categoria: 'Historial', desc: 'Visualiza el árbol de commits y fusiones recientes.' },
+  { cmd: 'git stash', categoria: 'Cambios', desc: 'Guarda temporalmente cambios sin confirmar para cambiar de rama.' },
+  { cmd: 'git revert <hash>', categoria: 'Historial', desc: 'Revierte un commit previo creando uno nuevo sin reescribir historial.' },
+  { cmd: 'git tag -a v1.0.0 -m "Release"', categoria: 'Historial', desc: 'Crea una etiqueta anotada bajo Semantic Versioning.' },
+  { cmd: 'git push origin v1.0.0', categoria: 'Remotos', desc: 'Publica la etiqueta de versión en el remoto.' },
+  { cmd: 'git branch -d <rama>', categoria: 'Ramas', desc: 'Elimina localmente una rama ya fusionada.' },
+];
+
+export function filtrarComandos(lista, categoria = 'Todos', termino = '') {
+  const q = termino.trim().toLowerCase();
+  return lista.filter((item) => {
+    const coincideCat = categoria === 'Todos' || item.categoria === categoria;
+    const coincideTexto =
+      !q || item.cmd.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q);
+    return coincideCat && coincideTexto;
+  });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   renderizarNavbar();
   renderizarFooter();
 
   const contenedor = document.querySelector('main.container');
-
-  const comandos = [
-    { cmd: "git clone <url>", desc: "Clona el repositorio remoto completo con su historial." },
-    { cmd: "git switch -c <rama>", desc: "Crea y cambia a una rama aislada de trabajo." },
-    { cmd: "git status -s", desc: "Muestra en formato corto los archivos modificados o sin seguimiento." },
-    { cmd: "git add .", desc: "Envía todos los cambios al área de preparación (Staging)." },
-    { cmd: 'git commit -m "feat: mensaje"', desc: "Registra una instantánea usando Conventional Commits." },
-    { cmd: "git push -u origin <rama>", desc: "Publica la rama local en el repositorio remoto." },
-    { cmd: "git fetch --all", desc: "Descarga referencias y ramas remotas sin alterar el código local." },
-    { cmd: "git pull --rebase origin develop", desc: "Actualiza la rama actual manteniendo un historial limpio y lineal." },
-    { cmd: "git diff", desc: "Muestra línea por línea los cambios aún no confirmados." },
-    { cmd: "git log --oneline --graph -n 10", desc: "Visualiza el árbol de commits y fusiones recientes." },
-    { cmd: "git stash", desc: "Guarda temporalmente cambios sin confirmar para cambiar de rama." },
-    { cmd: "git revert <hash>", desc: "Revierte un commit previo creando uno nuevo sin reescribir historial." },
-    { cmd: 'git tag -a v1.0.0 -m "Release"', desc: "Crea una etiqueta anotada bajo Semantic Versioning." },
-    { cmd: "git push origin v1.0.0", desc: "Publica la etiqueta de versión en el remoto." },
-    { cmd: "git branch -d <rama>", desc: "Elimina localmente una rama ya fusionada." }
-  ];
+  contenedor.classList.add('recursos');
 
   contenedor.innerHTML = `
-    <section style="max-width: 960px; margin: 2rem auto; padding: 2rem; border: 1px solid #cbd5e1; border-radius: 12px; background: #ffffff;">
-      <header style="border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 1.5rem;">
-        <h1 style="font-size: 1.9rem; color: #0f172a; margin-bottom: 0.4rem;">Recursos Técnicos y Guía Rápida de Git</h1>
-        <p style="color: #475569;">Arquitectura de Software · Grupo 2 · Aporte: Ernesto Alexander Chicango Brusil</p>
-      </header>
+    <header class="encabezado-recursos">
+      <h1>Recursos técnicos del proyecto</h1>
+      <p>Comandos Git del flujo colaborativo, cuotas de CI/CD, estándares y solución de errores · Arquitectura de Software · Grupo 2</p>
+    </header>
 
-      <h2 style="font-size: 1.3rem; color: #1e40af; margin-bottom: 0.75rem;">1. Los 15 comandos esenciales del flujo colaborativo</h2>
-      <p style="color: #334155; margin-bottom: 1rem;">Haz clic en <strong>Copiar</strong> para llevar cualquier comando directo a tu terminal:</p>
-      
-      <div style="overflow-x: auto; margin-bottom: 2rem;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+    <nav class="indice" aria-label="Contenido de recursos">
+      <p>Contenido</p>
+      <ol>
+        <li><a href="#top-comandos">Top 10 comandos Git</a></li>
+        <li><a href="#comandos">Comandos Git por nivel de uso</a></li>
+        <li><a href="#nivel-esencial">Nivel Esencial (🔥)</a></li>
+        <li><a href="#nivel-frecuente">Nivel Frecuente (⚡)</a></li>
+        <li><a href="#nivel-ocasional">Nivel Ocasional (🧊)</a></li>
+        <li><a href="#cuotas">Cuotas de ejecución CI/CD</a></li>
+        <li><a href="#calculadora-ci">Calculadora de minutos CI/CD</a></li>
+        <li><a href="#estandares">Estándares del repositorio</a></li>
+        <li><a href="#errores">Problemas frecuentes y solución</a></li>
+        <li><a href="#resumen-qr">Resumen de comandos (QR)</a></li>
+      </ol>
+    </nav>
+
+    <div id="slot-top-comandos"></div>
+
+    <section id="comandos">
+      <h2><span class="num">1.</span>Comandos Git organizados por nivel de uso</h2>
+      <p>Todos los comandos del flujo <code>feature/*</code> &rarr; <code>develop</code> &rarr; <code>test</code> &rarr; <code>main</code> clasificados en tres niveles según su frecuencia operativa.</p>
+      <div id="slot-niveles-comandos"></div>
+    </section>
+
+    <section id="cuotas">
+      <h2><span class="num">2.</span>Cuotas de ejecución CI/CD</h2>
+      <p>Límites gratuitos de cómputo para ejecutar pipelines de validación y despliegue en cada plataforma:</p>
+      <div class="tabla">
+        <table>
+          <caption><strong>Tabla 2.</strong> Minutos gratuitos y multiplicadores por sistema operativo.</caption>
           <thead>
-            <tr style="background: #f1f5f9; text-align: left;">
-              <th style="padding: 0.65rem; border: 1px solid #cbd5e1;">Comando</th>
-              <th style="padding: 0.65rem; border: 1px solid #cbd5e1;">Propósito en el flujo</th>
-              <th style="padding: 0.65rem; border: 1px solid #cbd5e1; text-align: center;">Acción</th>
+            <tr>
+              <th scope="col">Plataforma / Plan</th>
+              <th scope="col">Minutos gratis incluidos</th>
+              <th scope="col">Regla de consumo</th>
             </tr>
           </thead>
           <tbody>
-            ${comandos.map((item, i) => `
-              <tr>
-                <td style="padding: 0.6rem; border: 1px solid #cbd5e1;"><code>${item.cmd.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></td>
-                <td style="padding: 0.6rem; border: 1px solid #cbd5e1; color: #1e293b;">${item.desc}</td>
-                <td style="padding: 0.6rem; border: 1px solid #cbd5e1; text-align: center;">
-                  <button data-idx="${i}" class="btn-copiar" style="padding: 0.3rem 0.7rem; cursor: pointer; border: 1px solid #94a3b8; border-radius: 6px; background: #f8fafc;">Copiar</button>
-                </td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      </div>
-
-      <h2 style="font-size: 1.3rem; color: #1e40af; margin-bottom: 0.75rem;">2. Cuotas gratuitas de ejecución CI/CD y multiplicadores</h2>
-      <div style="overflow-x: auto; margin-bottom: 2rem;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
-          <thead>
-            <tr style="background: #f1f5f9; text-align: left;">
-              <th style="padding: 0.65rem; border: 1px solid #cbd5e1;">Plataforma / Plan</th>
-              <th style="padding: 0.65rem; border: 1px solid #cbd5e1;">Minutos gratis incluidos</th>
-              <th style="padding: 0.65rem; border: 1px solid #cbd5e1;">Regla de consumo</th>
-            </tr>
-          </thead>
-          <tbody>
             <tr>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;"><strong>GitHub Actions (Free)</strong></td>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;">2.000 min/mes en privados · Ilimitado en públicos</td>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;">Linux ×1, Windows ×2, macOS ×10 (redondeo al minuto superior)</td>
+              <td>GitHub Actions (Free)</td>
+              <td>2.000 min/mes en privados · Ilimitado en públicos</td>
+              <td>Linux ×1, Windows ×2, macOS ×10 (redondeo al minuto superior)</td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;"><strong>GitHub Pro (Student Pack)</strong></td>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;">3.000 min/mes en privados · Ilimitado en públicos</td>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;">Incluye protección de ramas en repositorios privados</td>
+              <td>GitHub Pro (Student Pack)</td>
+              <td>3.000 min/mes en privados · Ilimitado en públicos</td>
+              <td>Incluye protección de ramas en repositorios privados</td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;"><strong>GitLab CI/CD (Free)</strong></td>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;">400 min/mes compartidos (públicos y privados)</td>
-              <td style="padding: 0.6rem; border: 1px solid #cbd5e1;">Runners compartidos ×1; runners propios (self-hosted) consumen 0 min</td>
+              <td>GitLab CI/CD (Free)</td>
+              <td>400 min/mes compartidos (públicos y privados)</td>
+              <td>Runners compartidos ×1; runners propios consumen 0 min</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div id="slot-calculadora-ci"></div>
+      ${renderCallout({
+        tipo: 'info',
+        titulo: 'Runners grandes (larger runners)',
+        texto:
+          'Los runners grandes de GitHub Actions nunca consumen minutos gratuitos incluidos en tu cuota mensual: siempre se facturan por minuto desde el primer uso.',
+      })}
+    </section>
 
-      <h2 style="font-size: 1.3rem; color: #1e40af; margin-bottom: 0.75rem;">3. Estándares aplicados en el repositorio</h2>
-      <ul style="line-height: 1.8; color: #1e293b; padding-left: 1.5rem;">
-        <li><strong>Conventional Commits:</strong> <code>feat:</code> (nueva función), <code>fix:</code> (corrección), <code>docs:</code> (documentación), <code>ci:</code> (pipelines), <code>chore:</code> (mantenimiento).</li>
-        <li><strong>Semantic Versioning (SemVer):</strong> <code>vMAYOR.MENOR.PARCHE</code> (ej. <code>v1.0.0</code> para entrega estable).</li>
-        <li><strong>Protección de ramas:</strong> Prohibido el <code>push</code> directo a <code>main</code> o <code>develop</code>; todo cambio pasa por Pull/Merge Request con validación automática en verde.</li>
+    <section id="estandares">
+      <h2><span class="num">3.</span>Estándares del repositorio</h2>
+      <ul>
+        <li><strong>Conventional Commits:</strong> <code>feat:</code> (nueva función), <code>fix:</code> (corrección), <code>docs:</code> (documentación), <code>style:</code> (estilos), <code>test:</code> (pruebas), <code>ci:</code> (pipelines) y <code>chore:</code> (mantenimiento).</li>
+        <li><strong>Semantic Versioning (SemVer):</strong> etiquetas anotadas con formato <code>vMAYOR.MENOR.PARCHE</code> (por ejemplo, <code>v1.0.0</code> para la primera entrega estable en <code>main</code>).</li>
+        <li><strong>Integración por Pull Request:</strong> ninguna rama protegida recibe commits directos; todo aporte pasa por revisión de pares y checks automáticos en verde.</li>
       </ul>
+      <div class="destacado">
+        <p><strong>Nota de integración:</strong> Al fusionar un Pull Request con varias tareas en GitHub, seleccionar <em>Create a merge commit</em> conserva en el historial cada commit atómico realizado en la rama de trabajo.</p>
+      </div>
+    </section>
+
+    <section id="errores">
+      <h2><span class="num">4.</span>Problemas frecuentes y solución</h2>
+      <dl>
+        <dt>Push rechazado en rama protegida</dt>
+        <dd>Ocurre al intentar subir cambios directamente a <code>main</code>, <code>test</code> o <code>develop</code>. Crea una rama de trabajo con <code>git switch -c feature/nombre</code> y abre un Pull Request.</dd>
+
+        <dt>Rama local desactualizada frente a develop</dt>
+        <dd>Antes de abrir un Pull Request, sincroniza los últimos cambios integrados por el equipo mediante <code>git pull --rebase origin develop</code>.</dd>
+
+        <dt>Deshacer un commit ya publicado sin alterar el historial</dt>
+        <dd>En ramas compartidas evita <code>git reset --hard</code>; utiliza <code>git revert HEAD</code> para registrar un commit inverso seguro.</dd>
+
+        <dt>Cambiar de rama con modificaciones sin terminar</dt>
+        <dd>Guarda temporalmente tus cambios en la pila con <code>git stash</code> y recupéralos al volver mediante <code>git stash pop</code>.</dd>
+      </dl>
+    </section>
+
+    <section id="resumen-qr">
+      <h2><span class="num">5.</span>Resumen de comandos para llevar</h2>
+      <p>Guía en PDF con el flujo de trabajo, los comandos más usados y cómo deshacer cambios.</p>
+      <div id="slot-qr-drive"></div>
     </section>
   `;
 
-  document.querySelectorAll(".btn-copiar").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const idx = btn.getAttribute("data-idx");
-      navigator.clipboard.writeText(comandos[idx].cmd);
-      const original = btn.textContent;
-      btn.textContent = "Copiado";
-      setTimeout(() => { btn.textContent = original; }, 1200);
-    });
-  });
+  renderTopCommands(document.getElementById('slot-top-comandos'), commandsTop10);
+  renderCommandLevel(document.getElementById('slot-niveles-comandos'), commandsAll);
+  renderCICalculator(document.getElementById('slot-calculadora-ci'));
+  renderQrDrive(document.getElementById('slot-qr-drive'));
 });

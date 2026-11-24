@@ -1,6 +1,14 @@
 import './styles/style.css';
 import './styles/informe.css';
+import './styles/branch-models.css';
+import './styles/conventional-chart.css';
+import './styles/callout.css';
 import { renderizarNavbar, renderizarFooter } from './components/layout.js';
+import branchModelsData from './data/branch-models.json';
+import conventionalData from './data/conventional-commits.json';
+import { renderBranchModelBadges } from './components/BranchModelBadges.js';
+import { renderConventionalChart } from './components/ConventionalChart.js';
+import { renderCallout } from './components/Callout.js';
 
 // Enlaces usados en la página (se definen una sola vez para no repetirlos)
 const REPO_GRUPO = 'https://github.com/sampedro2002/versionamiento-web';
@@ -111,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <section id="flujo">
       <h2><span class="num">4.</span>Flujo de trabajo en Git</h2>
       <p>El grupo aplica una versión simplificada de GitFlow. Cada integrante crea su rama desde <code>develop</code>, registra sus cambios con mensajes de Conventional Commits y solicita la integración mediante un pull request.</p>
+      <div id="slot-badges-ramas"></div>
       <div class="tabla">
         <table>
           <caption>Tabla 1. Ramas del repositorio y su función.</caption>
@@ -132,15 +141,17 @@ document.addEventListener('DOMContentLoaded', () => {
             <tr><th scope="col">Tipo</th><th scope="col">Uso</th><th scope="col">Ejemplo</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>feat</code></td><td>Nueva funcionalidad o contenido</td><td><code>feat(informe): agrega el flujo de ramas</code></td></tr>
-            <tr><td><code>fix</code></td><td>Corrección de un error</td><td><code>fix(informe): corrige un enlace</code></td></tr>
-            <tr><td><code>docs</code></td><td>Documentación</td><td><code>docs: actualiza el README</code></td></tr>
-            <tr><td><code>style</code></td><td>Estilos sin cambio de lógica</td><td><code>style(informe): ajusta las tablas</code></td></tr>
-            <tr><td><code>ci</code></td><td>Pipelines y automatización</td><td><code>ci: agrega validación en pull requests</code></td></tr>
-            <tr><td><code>chore</code></td><td>Tareas de mantenimiento</td><td><code>chore: actualiza .gitignore</code></td></tr>
+            <tr id="cc-feat"><td><code>feat</code></td><td>Nueva funcionalidad o contenido</td><td><code>feat(informe): agrega el flujo de ramas</code></td></tr>
+            <tr id="cc-fix"><td><code>fix</code></td><td>Corrección de un error</td><td><code>fix(informe): corrige un enlace</code></td></tr>
+            <tr id="cc-docs"><td><code>docs</code></td><td>Documentación</td><td><code>docs: actualiza el README</code></td></tr>
+            <tr id="cc-style"><td><code>style</code></td><td>Estilos sin cambio de lógica</td><td><code>style(informe): ajusta las tablas</code></td></tr>
+            <tr id="cc-ci"><td><code>ci</code></td><td>Pipelines y automatización</td><td><code>ci: agrega validación en pull requests</code></td></tr>
+            <tr id="cc-test"><td><code>test</code></td><td>Pruebas automatizadas</td><td><code>test(web): agrega pruebas unitarias</code></td></tr>
+            <tr id="cc-chore"><td><code>chore</code></td><td>Tareas de mantenimiento</td><td><code>chore: actualiza .gitignore</code></td></tr>
           </tbody>
         </table>
       </div>
+      <div id="slot-conventional-chart"></div>
     </section>
 
     <section id="reglas">
@@ -164,6 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="destacado">
         <p><strong>Evidencia del prototipo.</strong> En el <a href="${PROTOTIPO}/pull/3" target="_blank" rel="noopener">PR #3</a> se eliminó a propósito el texto alternativo de una imagen: la validación falló y GitHub bloqueó la fusión. El mismo mecanismo de check obligatorio se incorpora a este repositorio.</p>
       </div>
+      ${renderCallout({
+        tipo: 'danger',
+        titulo: 'Público → privado desactiva protección sin avisar',
+        texto:
+          'Si cambias un repositorio público a privado en GitHub Free, las reglas de protección de ramas se desactivan silenciosamente hasta contar con GitHub Pro o GitHub Education.',
+      })}
     </section>
 
     <section id="variables">
@@ -177,6 +194,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <dt>Variables predefinidas</dt>
         <dd>Cada plataforma ofrece datos del pipeline sin configuración: <code>GITHUB_SHA</code> en GitHub y <code>CI_COMMIT_SHORT_SHA</code> en GitLab.</dd>
       </dl>
+      ${renderCallout({
+        tipo: 'danger',
+        titulo: 'Riesgo crítico con pull_request_target',
+        texto:
+          'El evento pull_request_target se ejecuta con permisos de escritura y acceso a secretos del repositorio base; nunca hagas checkout ni ejecutes código no verificado de un fork dentro de ese trigger.',
+      })}
     </section>
 
     <section id="mediciones">
@@ -232,4 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </section>
   `;
+
+  renderBranchModelBadges(document.getElementById('slot-badges-ramas'), branchModelsData);
+  renderConventionalChart(document.getElementById('slot-conventional-chart'), conventionalData);
 });

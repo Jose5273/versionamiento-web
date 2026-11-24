@@ -1,0 +1,106 @@
+/* Estilos propios del componente ConventionalChart. */
+
+.conventional-chart {
+  margin: 1.5rem 0 0.5rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f8f9fb;
+}
+
+.conventional-chart h3 {
+  margin: 0 0 0.9rem;
+  font-size: 1.05rem;
+  color: #111827;
+}
+
+.conventional-chart .cc-layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.conventional-chart .cc-donut {
+  flex: 0 0 180px;
+}
+
+.conventional-chart .cc-donut svg {
+  width: 180px;
+  height: 180px;
+  display: block;
+}
+
+.conventional-chart .cc-leyenda {
+  flex: 1 1 260px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.5rem;
+}
+
+.conventional-chart .cc-leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  border: 1px solid #e3e6ea;
+  border-radius: 6px;
+  padding: 0.45rem 0.65rem;
+}
+
+.conventional-chart .cc-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.conventional-chart .cc-enlace {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-decoration: none;
+  color: #1a1d23;
+  font-size: 0.88rem;
+}
+
+.conventional-chart .cc-enlace:hover code {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.conventional-chart .cc-desc {
+  font-size: 0.78rem;
+  color: #5b6470;
+}
+
+.conventional-chart .cc-pct {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.conventional-chart .cc-nota {
+  margin: 0.9rem 0 0;
+  font-size: 0.84rem;
+  color: #4b5563;
+}
+
+@media (max-width: 640px) {
+  .conventional-chart .cc-layout {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .conventional-chart .cc-donut {
+    align-self: center;
+  }
+
+  .conventional-chart .cc-leyenda {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+}

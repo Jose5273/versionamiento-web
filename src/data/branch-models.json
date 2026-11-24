@@ -1,0 +1,32 @@
+{
+  "notaFuente": "Estimación cualitativa basada en encuestas de industria DevOps y guías de GitHub/GitLab (2025-2026); valores orientativos para comparación académica.",
+  "modelos": [
+    {
+      "id": "github-flow",
+      "nombre": "GitHub Flow",
+      "adopcion": 46,
+      "badge": "Más usado",
+      "esMasUsado": true,
+      "color": "#2563eb",
+      "cuandoElegirlo": "Ideal para despliegue continuo en web/APIs: una rama principal estable y ramas feature cortas integradas por Pull Request."
+    },
+    {
+      "id": "gitflow",
+      "nombre": "GitFlow",
+      "adopcion": 32,
+      "badge": "Versionado estructurado",
+      "esMasUsado": false,
+      "color": "#0d9488",
+      "cuandoElegirlo": "Recomendado cuando existen ciclos de liberación planificados, soporte de múltiples versiones o ramas intermedias como develop y test."
+    },
+    {
+      "id": "trunk-based",
+      "nombre": "Trunk-Based Development",
+      "adopcion": 22,
+      "badge": "Alto rendimiento CI/CD",
+      "esMasUsado": false,
+      "color": "#7c3aed",
+      "cuandoElegirlo": "Óptimo para equipos con fuerte cobertura de pruebas automáticas y feature flags que integran directamente al tronco a diario."
+    }
+  ]
+}

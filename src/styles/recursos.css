@@ -1,0 +1,211 @@
+/* Estilos propios de la página Recursos.
+   Misma línea visual que Informe e Investigación. */
+
+.recursos {
+  --tinta: #1a1d23;
+  --gris: #5b6470;
+  --linea: #e3e6ea;
+  --suave: #f5f6f8;
+  --acento: #2563eb;
+  --acento-claro: #eef3fe;
+  --ok: #1f7a3d;
+}
+
+.recursos .encabezado-recursos {
+  border-bottom: 1px solid var(--linea);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.recursos .encabezado-recursos h1 {
+  margin: 0 0 0.4rem;
+  font-size: 2rem;
+}
+
+.recursos .encabezado-recursos p {
+  margin: 0;
+  color: var(--gris);
+}
+
+.recursos .indice {
+  background: var(--suave);
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.recursos .indice p {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.recursos .indice ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  columns: 2;
+}
+
+.recursos .indice a {
+  text-decoration: none;
+}
+
+.recursos section {
+  margin-bottom: 2.25rem;
+}
+
+.recursos h2 {
+  font-size: 1.4rem;
+  margin: 0 0 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.recursos h2 .num {
+  color: var(--gris);
+  font-weight: 400;
+  margin-right: 0.4rem;
+}
+
+.recursos caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--gris);
+  padding-bottom: 0.4rem;
+}
+
+.recursos .tabla {
+  overflow-x: auto;
+}
+
+.recursos code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--suave);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.recursos .destacado {
+  border-left: 4px solid var(--acento);
+  background: var(--acento-claro);
+  padding: 0.75rem 1rem;
+  border-radius: 0 6px 6px 0;
+  margin: 1rem 0;
+}
+
+.recursos .destacado p {
+  margin: 0;
+}
+
+.recursos dl dt {
+  font-weight: 600;
+  margin-top: 0.9rem;
+}
+
+.recursos dl dd {
+  margin: 0.2rem 0 0;
+  color: #333a44;
+}
+
+/* Barra discreta de filtro y botón copiar */
+.recursos .controles-filtro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0 0.5rem;
+}
+
+.recursos .categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.recursos .btn-cat {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  background: var(--suave);
+  color: var(--tinta);
+  font-size: 0.86rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.recursos .btn-cat:hover {
+  border-color: var(--acento);
+}
+
+.recursos .btn-cat.activo {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: #fff;
+}
+
+.recursos .buscador {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  min-width: 220px;
+}
+
+.recursos .btn-copiar {
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--linea);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--tinta);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.recursos .btn-copiar:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+.recursos .btn-copiar.copiado {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+@media (max-width: 640px) {
+  .recursos .indice ol {
+    columns: 1;
+  }
+}
+
+.recursos .qr-drive {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 1rem 0 0;
+  padding: 1rem;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.recursos .qr-imagen svg {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+
+.recursos .qr-drive figcaption {
+  font-size: 0.92rem;
+}
+
+@media (max-width: 640px) {
+  .recursos .qr-drive {
+    flex-direction: column;
+    text-align: center;
+  }
+}

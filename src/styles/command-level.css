@@ -1,0 +1,170 @@
+/* Estilos propios del componente CommandLevel (Esencial 🔥, Frecuente ⚡, Ocasional 🧊). */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.cmd-levels {
+  margin: 1rem 0 0.5rem;
+}
+
+.cmd-levels .cl-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 1.25rem;
+}
+
+.cmd-levels .cl-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.cmd-levels .cl-tab:hover {
+  border-color: #2563eb;
+  background: #eef3fe;
+}
+
+.cmd-levels .cl-count {
+  font-size: 0.78rem;
+  background: #f3f4f6;
+  color: #374151;
+  padding: 0.08rem 0.45rem;
+  border-radius: 999px;
+}
+
+.cmd-levels .cl-bloques {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.cmd-levels .cl-bloque {
+  border: 1px solid #d1d5db;
+  border-left-width: 5px;
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  background: #f8f9fb;
+  scroll-margin-top: 1rem;
+}
+
+.cmd-levels .cl-bloque-esencial {
+  border-left-color: #dc2626;
+}
+
+.cmd-levels .cl-bloque-frecuente {
+  border-left-color: #d97706;
+}
+
+.cmd-levels .cl-bloque-ocasional {
+  border-left-color: #2563eb;
+}
+
+.cmd-levels .cl-bloque-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.cmd-levels .cl-bloque-head h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1.12rem;
+  color: #111827;
+}
+
+.cmd-levels .cl-subtitulo {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #4b5563;
+}
+
+.cmd-levels .cl-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #1f2937;
+}
+
+.cmd-levels .cl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.7rem;
+}
+
+.cmd-levels .cl-item {
+  background: #ffffff;
+  border: 1px solid #e3e6ea;
+  border-radius: 6px;
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.cmd-levels .cl-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.cmd-levels .cl-cmd {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.cmd-levels .cl-item-desc {
+  margin: 0;
+  font-size: 0.86rem;
+  color: #333a44;
+}
+
+.cmd-levels .cl-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.cmd-levels .cl-tag {
+  font-size: 0.74rem;
+  background: #eef3fe;
+  color: #1e40af;
+  padding: 0.08rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.cmd-levels .cl-copiar {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #1a1d23;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cmd-levels .cl-copiar.copiado {
+  border-color: #1f7a3d;
+  color: #1f7a3d;
+  font-weight: 600;
+}

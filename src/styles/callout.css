@@ -1,0 +1,71 @@
+/* Estilos propios del componente Callout (variantes warning, danger e info). */
+
+.callout {
+  margin: 1rem 0 1.25rem;
+  padding: 0.85rem 1.05rem;
+  border-radius: 0 8px 8px 0;
+  border: 1px solid #d1d5db;
+  border-left-width: 5px;
+}
+
+.callout .callout-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.callout .callout-badge {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.12rem 0.45rem;
+  border-radius: 4px;
+}
+
+.callout .callout-titulo {
+  font-size: 0.96rem;
+  color: #111827;
+}
+
+.callout .callout-texto {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+.callout.callout-warning {
+  background: #fffbeb;
+  border-color: #fde68a;
+  border-left-color: #d97706;
+}
+
+.callout.callout-warning .callout-badge {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.callout.callout-danger {
+  background: #fef2f2;
+  border-color: #fecaca;
+  border-left-color: #dc2626;
+}
+
+.callout.callout-danger .callout-badge {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.callout.callout-info {
+  background: #eef3fe;
+  border-color: #bfdbfe;
+  border-left-color: #2563eb;
+}
+
+.callout.callout-info .callout-badge {
+  background: #dbeafe;
+  color: #1e40af;
+}

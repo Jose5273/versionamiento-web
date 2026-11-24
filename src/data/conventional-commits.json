@@ -1,0 +1,55 @@
+{
+  "metodologia": "Porcentajes estimados mediante distribución observada en repositorios open-source que siguen Conventional Commits v1.0.0 (priorizando feat y fix como cambios funcionales y chore/docs/style/ci/test como soporte).",
+  "notaTransparencia": "Datos estimados basados en repos públicos con especificación Conventional Commits.",
+  "tipos": [
+    {
+      "tipo": "feat",
+      "porcentaje": 34,
+      "color": "#2563eb",
+      "ancla": "#cc-feat",
+      "descripcion": "Nueva funcionalidad"
+    },
+    {
+      "tipo": "fix",
+      "porcentaje": 28,
+      "color": "#dc2626",
+      "ancla": "#cc-fix",
+      "descripcion": "Corrección de errores"
+    },
+    {
+      "tipo": "chore",
+      "porcentaje": 14,
+      "color": "#475569",
+      "ancla": "#cc-chore",
+      "descripcion": "Mantenimiento y configuración"
+    },
+    {
+      "tipo": "docs",
+      "porcentaje": 10,
+      "color": "#0d9488",
+      "ancla": "#cc-docs",
+      "descripcion": "Documentación"
+    },
+    {
+      "tipo": "style",
+      "porcentaje": 6,
+      "color": "#7c3aed",
+      "ancla": "#cc-style",
+      "descripcion": "Estilos sin cambio de lógica"
+    },
+    {
+      "tipo": "ci",
+      "porcentaje": 5,
+      "color": "#d97706",
+      "ancla": "#cc-ci",
+      "descripcion": "Pipelines y automatización"
+    },
+    {
+      "tipo": "test",
+      "porcentaje": 3,
+      "color": "#15803d",
+      "ancla": "#cc-test",
+      "descripcion": "Pruebas automatizadas"
+    }
+  ]
+}

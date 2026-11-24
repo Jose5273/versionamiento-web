@@ -1,6 +1,11 @@
 import './styles/style.css';
 import './styles/investigacion.css';
+import './styles/command-search.css';
+import './styles/callout.css';
 import { renderizarNavbar, renderizarFooter } from './components/layout.js';
+import commandsAll from './data/commands-all.json';
+import { renderCommandSearch } from './components/CommandSearch.js';
+import { renderCallout } from './components/Callout.js';
 
 const REPO_GITHUB = 'https://github.com/sampedro2002/versionamiento-web';
 const WORKFLOW_SYNC = `${REPO_GITHUB}/blob/main/.github/workflows/sync-gitlab.yml`;
@@ -162,6 +167,12 @@ jobs:
         </table>
       </div>
       <p>En GitHub Free, las reglas de protección aplican a repositorios públicos; en repositorios privados requieren GitHub Pro, incluido en GitHub Education.</p>
+      ${renderCallout({
+        tipo: 'warning',
+        titulo: 'GitHub Free + repositorio privado',
+        texto:
+          'En cuentas GitHub Free, la protección de ramas en repositorios privados requiere GitHub Pro (incluido gratis con GitHub Education).',
+      })}
     </section>
 
     <section id="variables">
@@ -261,6 +272,13 @@ jobs:
           </tbody>
         </table>
       </div>
+      <div id="slot-buscador-comandos"></div>
+      ${renderCallout({
+        tipo: 'warning',
+        titulo: 'Precaución antes de ejecutar git reset --hard',
+        texto:
+          'Nunca ejecutes git reset --hard sin respaldar primero tus cambios pendientes con git stash; de lo contrario, el trabajo no confirmado se perderá de forma irreversible.',
+      })}
     </section>
 
     <section id="educacion">
@@ -437,4 +455,6 @@ jobs:
       <p class="nota">Los planes, cuotas y beneficios citados corresponden a noviembre de 2026 y pueden cambiar.</p>
     </section>
   `;
+
+  renderCommandSearch(document.getElementById('slot-buscador-comandos'), commandsAll);
 });

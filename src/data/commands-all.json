@@ -1,0 +1,282 @@
+[
+  {
+    "id": "clone",
+    "comando": "git clone <url>",
+    "descripcion": "Clona el repositorio remoto completo con su historial.",
+    "etiquetas": ["#remoto", "#config"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "init",
+    "comando": "git init",
+    "descripcion": "Inicializa un nuevo repositorio Git vacío en el directorio actual.",
+    "etiquetas": ["#config"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "status-s",
+    "comando": "git status -s",
+    "descripcion": "Muestra en formato corto los archivos modificados o sin seguimiento.",
+    "etiquetas": ["#staging"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "add-all",
+    "comando": "git add .",
+    "descripcion": "Envía todos los cambios al área de preparación (Staging).",
+    "etiquetas": ["#staging"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "commit-feat",
+    "comando": "git commit -m \"feat: mensaje\"",
+    "descripcion": "Registra una instantánea usando Conventional Commits.",
+    "etiquetas": ["#staging", "#historial"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "switch-c",
+    "comando": "git switch -c <rama>",
+    "descripcion": "Crea y cambia a una rama aislada de trabajo.",
+    "etiquetas": ["#rama"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "switch",
+    "comando": "git switch <rama>",
+    "descripcion": "Cambia rápidamente a una rama existente en el repositorio.",
+    "etiquetas": ["#rama"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "push-u",
+    "comando": "git push -u origin <rama>",
+    "descripcion": "Publica la rama local en el repositorio remoto.",
+    "etiquetas": ["#remoto", "#rama"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "pull-rebase",
+    "comando": "git pull --rebase origin develop",
+    "descripcion": "Actualiza la rama actual manteniendo un historial limpio y lineal.",
+    "etiquetas": ["#rama", "#remoto"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "fetch-all",
+    "comando": "git fetch --all",
+    "descripcion": "Descarga referencias y ramas remotas sin alterar el código local.",
+    "etiquetas": ["#remoto"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "diff",
+    "comando": "git diff",
+    "descripcion": "Muestra línea por línea los cambios aún no confirmados.",
+    "etiquetas": ["#staging"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "diff-staged",
+    "comando": "git diff --staged",
+    "descripcion": "Compara los cambios preparados en Staging frente al último commit.",
+    "etiquetas": ["#staging"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "log-graph",
+    "comando": "git log --oneline --graph -n 10",
+    "descripcion": "Visualiza el árbol de commits y fusiones recientes.",
+    "etiquetas": ["#historial"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "stash",
+    "comando": "git stash",
+    "descripcion": "Guarda temporalmente cambios sin confirmar para cambiar de rama.",
+    "etiquetas": ["#deshacer", "#staging"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "stash-pop",
+    "comando": "git stash pop",
+    "descripcion": "Recupera y aplica el último respaldo guardado en el stash.",
+    "etiquetas": ["#deshacer", "#staging"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "stash-list",
+    "comando": "git stash list",
+    "descripcion": "Lista todas las entradas almacenadas temporalmente en el stash.",
+    "etiquetas": ["#deshacer", "#historial"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "branch-a",
+    "comando": "git branch -a",
+    "descripcion": "Lista las ramas locales y remotas conocidas por el repositorio.",
+    "etiquetas": ["#rama"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "branch-d",
+    "comando": "git branch -d <rama>",
+    "descripcion": "Elimina localmente una rama ya fusionada.",
+    "etiquetas": ["#rama"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "branch-m",
+    "comando": "git branch -m <nuevo-nombre>",
+    "descripcion": "Renombra la rama local actual manteniendo su historial.",
+    "etiquetas": ["#rama"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "merge",
+    "comando": "git merge <rama>",
+    "descripcion": "Integra los commits de otra rama dentro de la rama actual.",
+    "etiquetas": ["#rama", "#conflicto"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "merge-no-ff",
+    "comando": "git merge --no-ff <rama>",
+    "descripcion": "Fuerza un commit de fusión para conservar la trazabilidad de la rama.",
+    "etiquetas": ["#rama", "#historial"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "merge-abort",
+    "comando": "git merge --abort",
+    "descripcion": "Cancela una fusión con conflictos y devuelve el árbol al estado previo.",
+    "etiquetas": ["#conflicto", "#deshacer"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "rebase-develop",
+    "comando": "git rebase develop",
+    "descripcion": "Reaplica los commits propios sobre la punta actualizada de develop.",
+    "etiquetas": ["#rama", "#conflicto"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "rebase-continue",
+    "comando": "git rebase --continue",
+    "descripcion": "Continúa un rebase tras resolver manualmente los conflictos detectados.",
+    "etiquetas": ["#conflicto", "#rama"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "rebase-abort",
+    "comando": "git rebase --abort",
+    "descripcion": "Aborta un rebase en curso con conflictos y restaura la rama original.",
+    "etiquetas": ["#conflicto", "#deshacer"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "restore-file",
+    "comando": "git restore <archivo>",
+    "descripcion": "Descarta modificaciones locales no preparadas en un archivo específico.",
+    "etiquetas": ["#deshacer", "#staging"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "restore-staged",
+    "comando": "git restore --staged <archivo>",
+    "descripcion": "Retira un archivo de Staging sin perder sus cambios en el directorio.",
+    "etiquetas": ["#deshacer", "#staging"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "revert",
+    "comando": "git revert <hash>",
+    "descripcion": "Revierte un commit previo creando uno nuevo sin reescribir historial.",
+    "etiquetas": ["#deshacer", "#historial"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "reset-soft",
+    "comando": "git reset --soft HEAD~1",
+    "descripcion": "Deshace el último commit local manteniendo los cambios en Staging.",
+    "etiquetas": ["#deshacer"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "reset-hard",
+    "comando": "git reset --hard <hash>",
+    "descripcion": "Restablece rama y archivos al commit indicado descartando cambios locales.",
+    "etiquetas": ["#deshacer", "#conflicto"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "cherry-pick",
+    "comando": "git cherry-pick <hash>",
+    "descripcion": "Aplica un commit puntual de otra rama sobre la rama actual.",
+    "etiquetas": ["#rama", "#conflicto"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "tag-a",
+    "comando": "git tag -a v1.0.0 -m \"Release\"",
+    "descripcion": "Crea una etiqueta anotada bajo Semantic Versioning.",
+    "etiquetas": ["#tag", "#historial"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "push-tag",
+    "comando": "git push origin v1.0.0",
+    "descripcion": "Publica la etiqueta de versión en el remoto.",
+    "etiquetas": ["#tag", "#remoto"],
+    "nivel": "frecuente"
+  },
+  {
+    "id": "tag-list",
+    "comando": "git tag -l",
+    "descripcion": "Lista todas las etiquetas de versión registradas en el repositorio.",
+    "etiquetas": ["#tag", "#historial"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "remote-v",
+    "comando": "git remote -v",
+    "descripcion": "Muestra las URLs configuradas para fetch y push de cada remoto.",
+    "etiquetas": ["#remoto", "#config"],
+    "nivel": "esencial"
+  },
+  {
+    "id": "remote-add-gitlab",
+    "comando": "git remote add gitlab <url>",
+    "descripcion": "Registra GitLab como segundo repositorio remoto junto a origin.",
+    "etiquetas": ["#remoto", "#config"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "push-gitlab",
+    "comando": "git push gitlab main",
+    "descripcion": "Empuja manualmente la rama main hacia el remoto de GitLab.",
+    "etiquetas": ["#remoto"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "push-force-lease",
+    "comando": "git push --force-with-lease",
+    "descripcion": "Actualiza una rama propia tras rebase protegiendo commits remotos ajenos.",
+    "etiquetas": ["#remoto", "#rama"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "show-hash",
+    "comando": "git show <hash>",
+    "descripcion": "Inspecciona los metadatos y el diff completo de un commit específico.",
+    "etiquetas": ["#historial"],
+    "nivel": "ocasional"
+  },
+  {
+    "id": "config-cred",
+    "comando": "git config credential.https://github.com.username <usuario>",
+    "descripcion": "Asocia explícitamente un usuario de GitHub al repositorio local.",
+    "etiquetas": ["#config", "#remoto"],
+    "nivel": "ocasional"
+  }
+]

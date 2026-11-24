@@ -1,0 +1,82 @@
+[
+  {
+    "ranking": 1,
+    "comando": "git status -s",
+    "descripcion": "Verifica rápidamente archivos modificados o sin seguimiento antes de confirmar.",
+    "frecuencia": "24 usos/día",
+    "rol": "junior",
+    "etiquetas": ["#estado", "#staging"]
+  },
+  {
+    "ranking": 2,
+    "comando": "git add .",
+    "descripcion": "Prepara todos los cambios del directorio de trabajo para el siguiente commit.",
+    "frecuencia": "20 usos/día",
+    "rol": "junior",
+    "etiquetas": ["#staging", "#cambios"]
+  },
+  {
+    "ranking": 3,
+    "comando": "git commit -m \"feat: mensaje\"",
+    "descripcion": "Registra una instantánea atómica siguiendo Conventional Commits.",
+    "frecuencia": "16 usos/día",
+    "rol": "junior",
+    "etiquetas": ["#commit", "#cambios"]
+  },
+  {
+    "ranking": 4,
+    "comando": "git switch -c feature/nombre",
+    "descripcion": "Crea y cambia a una rama aislada desde develop para cada tarea.",
+    "frecuencia": "6 usos/día",
+    "rol": "junior",
+    "etiquetas": ["#rama", "#flujo"]
+  },
+  {
+    "ranking": 5,
+    "comando": "git pull --rebase origin develop",
+    "descripcion": "Sincroniza la rama actual sobre develop manteniendo historial lineal.",
+    "frecuencia": "8 usos/día",
+    "rol": "senior",
+    "etiquetas": ["#rama", "#remoto"]
+  },
+  {
+    "ranking": 6,
+    "comando": "git diff",
+    "descripcion": "Inspecciona línea por línea los cambios pendientes antes de prepararlos.",
+    "frecuencia": "14 usos/día",
+    "rol": "senior",
+    "etiquetas": ["#cambios", "#revision"]
+  },
+  {
+    "ranking": 7,
+    "comando": "git stash",
+    "descripcion": "Guarda cambios temporales sin confirmar para cambiar de rama de forma segura.",
+    "frecuencia": "5 usos/día",
+    "rol": "senior",
+    "etiquetas": ["#deshacer", "#cambios"]
+  },
+  {
+    "ranking": 8,
+    "comando": "git fetch --all --prune",
+    "descripcion": "Actualiza referencias remotas y limpia ramas ya eliminadas en origin.",
+    "frecuencia": "12 usos/semana",
+    "rol": "senior",
+    "etiquetas": ["#remoto", "#rama"]
+  },
+  {
+    "ranking": 9,
+    "comando": "git revert <hash>",
+    "descripcion": "Revierte un commit publicado creando un commit inverso sin reescribir historial.",
+    "frecuencia": "3 usos/semana",
+    "rol": "lead",
+    "etiquetas": ["#deshacer", "#historial"]
+  },
+  {
+    "ranking": 10,
+    "comando": "git tag -a v1.0.0 -m \"Release\"",
+    "descripcion": "Marca una versión estable de lanzamiento bajo Semantic Versioning.",
+    "frecuencia": "2 usos/semana",
+    "rol": "lead",
+    "etiquetas": ["#tag", "#release"]
+  }
+]

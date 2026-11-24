@@ -1,0 +1,129 @@
+/* Estilos propios del componente CICalculator. */
+
+.ci-calc {
+  margin: 1.5rem 0 0.5rem;
+  padding: 1.2rem 1.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f8f9fb;
+}
+
+.ci-calc h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.ci-calc .ci-desc {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  color: #4b5563;
+}
+
+.ci-calc .ci-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ci-calc .ci-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.ci-calc .ci-campo input,
+.ci-calc .ci-campo select {
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  background: #ffffff;
+  color: #111827;
+}
+
+.ci-calc .ci-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #e3e6ea;
+  margin-bottom: 0.9rem;
+  font-size: 0.92rem;
+}
+
+.ci-calc .ci-total {
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.ci-calc .ci-cuotas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 0.9rem;
+}
+
+.ci-calc .ci-plan {
+  padding: 0.7rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+}
+
+.ci-calc .ci-plan.ok {
+  border-left: 4px solid #1f7a3d;
+}
+
+.ci-calc .ci-plan.excede {
+  border-left: 4px solid #dc2626;
+  background: #fef2f2;
+}
+
+.ci-calc .ci-plan-nombre {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.ci-calc .ci-plan-cuota {
+  font-size: 0.8rem;
+  color: #4b5563;
+  margin: 0.15rem 0;
+}
+
+.ci-calc .ci-plan-estado {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.ci-calc .ci-plan.ok .ci-plan-estado {
+  color: #166534;
+}
+
+.ci-calc .ci-plan.excede .ci-plan-estado {
+  color: #b91c1c;
+}
+
+.ci-calc .ci-recomendacion {
+  margin: 0 0 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-left: 4px solid #2563eb;
+  background: #eef3fe;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.ci-calc .ci-disclaimer {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #5b6470;
+}

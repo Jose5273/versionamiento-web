@@ -1,0 +1,168 @@
+/* Estilos propios del componente TopCommands. */
+
+.top-commands {
+  margin-bottom: 2.25rem;
+}
+
+.top-commands .top-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.9rem 0 0.75rem;
+}
+
+.top-commands .top-btn-rol {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #f5f6f8;
+  color: #1a1d23;
+  font-size: 0.88rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.top-commands .top-btn-rol:hover {
+  border-color: #2563eb;
+}
+
+.top-commands .top-btn-rol.activo {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.top-commands .top-tabla-wrap {
+  overflow-x: auto;
+}
+
+.top-commands .top-rank {
+  display: inline-block;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #eef3fe;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.top-commands .top-cmd {
+  display: inline-block;
+  font-weight: 600;
+}
+
+.top-commands .top-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+
+.top-commands .top-tag {
+  font-size: 0.75rem;
+  color: #4b5563;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  padding: 0.05rem 0.4rem;
+  border-radius: 4px;
+}
+
+.top-commands .top-freq {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  background: #dbeafe;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.top-commands .top-rol {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.top-commands .top-rol-junior {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.top-commands .top-rol-senior {
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+.top-commands .top-rol-lead {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.top-commands .top-btn-copiar {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #1a1d23;
+  font-size: 0.84rem;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.top-commands .top-btn-copiar:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.top-commands .top-btn-copiar.copiado {
+  border-color: #1f7a3d;
+  color: #1f7a3d;
+  font-weight: 600;
+}
+
+/* En móvil (ej. 375px), la tabla se apila en tarjetas individuales */
+@media (max-width: 640px) {
+  .top-commands .top-tabla thead {
+    display: none;
+  }
+
+  .top-commands .top-tabla,
+  .top-commands .top-tabla tbody,
+  .top-commands .top-tabla tr,
+  .top-commands .top-tabla td {
+    display: block;
+    width: 100%;
+  }
+
+  .top-commands .top-tabla tr.top-fila {
+    border: 1px solid #e3e6ea;
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem;
+    margin-bottom: 0.85rem;
+    background: #ffffff;
+  }
+
+  .top-commands .top-tabla td {
+    border-bottom: none;
+    padding: 0.35rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .top-commands .top-tabla td::before {
+    content: attr(data-label);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #5b6470;
+    text-transform: uppercase;
+  }
+}

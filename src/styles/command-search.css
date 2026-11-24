@@ -1,0 +1,184 @@
+/* Estilos propios del componente CommandSearch. */
+
+.cmd-search {
+  margin: 1.5rem 0 0.5rem;
+  padding: 1.2rem 1.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f8f9fb;
+}
+
+.cmd-search h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.cmd-search .cs-desc {
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  color: #4b5563;
+}
+
+.cmd-search .cs-label-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.cmd-search .cs-fila-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.cmd-search .cs-input {
+  flex: 1 1 240px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.94rem;
+  font-family: inherit;
+  background: #ffffff;
+  color: #111827;
+}
+
+.cmd-search .cs-input:focus-visible,
+.cmd-search .cs-tag-btn:focus-visible,
+.cmd-search .cs-limpiar:focus-visible,
+.cmd-search .cs-copiar:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+.cmd-search .cs-limpiar {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 0.88rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.cmd-search .cs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.cmd-search .cs-tag-btn {
+  padding: 0.28rem 0.65rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.cmd-search .cs-tag-btn.activo {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+.cmd-search .cs-contador {
+  margin: 0 0 0.75rem;
+  font-size: 0.86rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.cmd-search .cs-resultados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.75rem;
+}
+
+.cmd-search .cs-card {
+  background: #ffffff;
+  border: 1px solid #e3e6ea;
+  border-radius: 6px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.cmd-search .cs-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cmd-search .cs-cmd {
+  word-break: break-word;
+  font-weight: 600;
+}
+
+.cmd-search .cs-card-desc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #333a44;
+}
+
+.cmd-search .cs-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.cmd-search .cs-chip {
+  font-size: 0.75rem;
+  background: #eef3fe;
+  color: #1e40af;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.cmd-search .cs-copiar {
+  padding: 0.22rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #1a1d23;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cmd-search .cs-copiar.copiado {
+  border-color: #1f7a3d;
+  color: #1f7a3d;
+  font-weight: 600;
+}
+
+.cmd-search mark.resaltado {
+  background: #fef08a;
+  color: #111827;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+.cmd-search .cs-vacio {
+  grid-column: 1 / -1;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 1.1rem;
+  text-align: center;
+  color: #4b5563;
+}
