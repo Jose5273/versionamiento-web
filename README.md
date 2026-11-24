@@ -59,6 +59,7 @@ La aplicación está configurada como un sitio multipágina (**MPA**) con **Vite
 - **Nomenclatura de rama:** `<feat|fix>/VER-<número>-<slug-corto>`
 - **Mensaje de commit:** `VER-<número>: <descripción breve>`
 - **Título de Pull Request:** `VER-<número> <Título exacto de la tarjeta en Jira>`
+- **Fork personal:** pasos para crear y configurar el fork en [`docs/guia-fork.md`](docs/guia-fork.md).
 
 ---
 
