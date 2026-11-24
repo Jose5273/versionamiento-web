@@ -1,0 +1,25 @@
+image: node:22
+
+stages:
+  - test
+
+cache:
+  key:
+    files:
+      - pnpm-lock.yaml
+  paths:
+    - .pnpm-store
+
+test:
+  stage: test
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@9 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm test
+    - pnpm run build
+  rules:
+    - if: $CI_COMMIT_BRANCH == "test"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "test" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main")
