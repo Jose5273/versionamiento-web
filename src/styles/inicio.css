@@ -153,3 +153,30 @@ body.pagina-inicio .navbar {
     width: 100%;
   }
 }
+
+/* En index.html, el menú superior permanece oculto y aparece al acercar el cursor al borde superior */
+body.pagina-inicio .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+body.pagina-inicio .navbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 20px;
+}
+
+body.pagina-inicio .navbar:hover,
+body.pagina-inicio .navbar:focus-within {
+  opacity: 1;
+  transform: translateY(0);
+}
