@@ -1,18 +1,38 @@
+// ============================================================
+//  IMPORTACIONES
+//  - Hojas de estilo globales y específicas de la presentación
+//  - Funciones que pintan navbar y footer (layout compartido)
+// ============================================================
 import './styles/style.css';
 import './styles/presentacion.css';
 import { renderizarNavbar, renderizarFooter } from './components/layout.js';
 
-// num: número de sección · seccion: nombre corto · clase: estilo especial · html: contenido
+// ============================================================
+//  DATOS DE LAS LÁMINAS
+//  Cada objeto representa una diapositiva con:
+//    num    -> número o etiqueta de sección (ej. 'G2', '01')
+//    seccion-> nombre corto mostrado arriba a la izquierda
+//    clase  -> clase CSS opcional (ej. 'portada')
+//    html   -> contenido interno de la lámina
+//  El orden del array define el orden de navegación.
+// ============================================================
 const LAMINAS = [
+  // ----------------------------------------------------------
+  // Portada: título principal + integrantes del grupo
+  // ----------------------------------------------------------
   {
     num: 'G2', seccion: 'Arquitectura de Software', clase: 'portada',
     html: `
-      <h1>Gestión de versionamiento</h1>
-      <p class="destacada">GitHub y GitLab en un proyecto real, construido en equipo.</p>
+      <h1>Un repositorio, dos plataformas</h1>
+      <p class="destacada">La historia de un equipo de cuatro que necesitaba trabajar sin pisarse.</p>
       <div class="integrantes">
         <span>Jhon Ávila</span><span>Alexander Chicango</span><span>José Cuadro</span><span>Bruno Sampedro</span>
       </div>`,
   },
+
+  // ----------------------------------------------------------
+  // Índice / contenido: dos columnas de temas a tratar
+  // ----------------------------------------------------------
   {
     num: '00', seccion: 'Contenido',
     html: `
@@ -31,6 +51,10 @@ const LAMINAS = [
         </ol>
       </div>`,
   },
+
+  // ----------------------------------------------------------
+  // Contexto: Git como estándar de la industria (cifras)
+  // ----------------------------------------------------------
   {
     num: '01', seccion: 'Contexto',
     html: `
@@ -41,6 +65,10 @@ const LAMINAS = [
         <div><strong>2</strong><span>plataformas, un mismo proyecto</span></div>
       </div>`,
   },
+
+  // ----------------------------------------------------------
+  // Caso práctico: el propio sitio como ejemplo de flujo
+  // ----------------------------------------------------------
   {
     num: '01', seccion: 'Caso práctico',
     html: `
@@ -52,6 +80,10 @@ const LAMINAS = [
         <li>GitHub es el repositorio principal; GitLab, su réplica.</li>
       </ul>`,
   },
+
+  // ----------------------------------------------------------
+  // Diferencias: tabla comparativa GitHub vs GitLab
+  // ----------------------------------------------------------
   {
     num: '02', seccion: 'Diferencias',
     html: `
@@ -66,6 +98,10 @@ const LAMINAS = [
         </tbody>
       </table>`,
   },
+
+  // ----------------------------------------------------------
+  // Despliegue 1/3: workflow que replica GitHub -> GitLab
+  // ----------------------------------------------------------
   {
     num: '03', seccion: 'Despliegue',
     html: `
@@ -79,6 +115,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: git push gitlab --force --prune ...</code></pre>`,
   },
+
+  // ----------------------------------------------------------
+  // Despliegue 2/3: workflow de GitHub Actions hacia Pages
+  // ----------------------------------------------------------
   {
     num: '03', seccion: 'Despliegue',
     html: `
@@ -93,6 +133,10 @@ jobs:
     steps:
       - uses: actions/deploy-pages@v4</code></pre>`,
   },
+
+  // ----------------------------------------------------------
+  // Despliegue 3/3: pipeline de GitLab CI hacia Pages
+  // ----------------------------------------------------------
   {
     num: '03', seccion: 'Despliegue',
     html: `
@@ -105,6 +149,10 @@ pages:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</code></pre>`,
   },
+
+  // ----------------------------------------------------------
+  // Reglas: tabla de aprobaciones por rama
+  // ----------------------------------------------------------
   {
     num: '04', seccion: 'Reglas',
     html: `
@@ -118,6 +166,10 @@ pages:
         </tbody>
       </table>`,
   },
+
+  // ----------------------------------------------------------
+  // Demostración: ejemplo de PR bloqueado por validación
+  // ----------------------------------------------------------
   {
     num: '04', seccion: 'Demostración',
     html: `
@@ -131,6 +183,10 @@ pages:
         <div class="sello">Merge bloqueado</div>
       </div>`,
   },
+
+  // ----------------------------------------------------------
+  // Variables: secretos y configuración por plataforma
+  // ----------------------------------------------------------
   {
     num: '05', seccion: 'Variables',
     html: `
@@ -144,6 +200,10 @@ pages:
         </tbody>
       </table>`,
   },
+
+  // ----------------------------------------------------------
+  // Comandos: bloque de ejemplo del día a día en Git
+  // ----------------------------------------------------------
   {
     num: '05', seccion: 'Comandos',
     html: `
@@ -155,6 +215,10 @@ git pull origin develop
 git revert HEAD
 git tag -a v1.0.0 -m "entrega"</code></pre>`,
   },
+
+  // ----------------------------------------------------------
+  // Cuentas educativas: comparación GitHub vs GitLab
+  // ----------------------------------------------------------
   {
     num: '06', seccion: 'Cuentas educativas',
     html: `
@@ -170,6 +234,10 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
         </div>
       </div>`,
   },
+
+  // ----------------------------------------------------------
+  // Resultados: tiempos de despliegue medidos
+  // ----------------------------------------------------------
   {
     num: '07', seccion: 'Resultados',
     html: `
@@ -179,6 +247,10 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
         <div class="bloque gl-borde"><div class="cifras"><div><strong>60 s</strong><span>GitLab Pages</span></div></div></div>
       </div>`,
   },
+
+  // ----------------------------------------------------------
+  // Hallazgos: aprendizajes del proyecto
+  // ----------------------------------------------------------
   {
     num: '07', seccion: 'Hallazgos',
     html: `
@@ -190,6 +262,10 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
         <li>El código se replica con un push; los pipelines no.</li>
       </ul>`,
   },
+
+  // ----------------------------------------------------------
+  // Decisión: cuándo elegir cada plataforma
+  // ----------------------------------------------------------
   {
     num: '07', seccion: 'Decisión',
     html: `
@@ -205,6 +281,10 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
         </div>
       </div>`,
   },
+
+  // ----------------------------------------------------------
+  // Conclusiones: ideas para llevar
+  // ----------------------------------------------------------
   {
     num: '07', seccion: 'Conclusiones',
     html: `
@@ -215,6 +295,10 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
         <li>Una regla solo protege si se prueba.</li>
       </ol>`,
   },
+
+  // ----------------------------------------------------------
+  // Referencias bibliográficas
+  // ----------------------------------------------------------
   {
     num: '—', seccion: 'Referencias',
     html: `
@@ -225,6 +309,10 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
         <li>GitHub (2025). <em>Octoverse</em>. Stack Overflow (2022). <em>Developer Survey</em>.</li>
       </ul>`,
   },
+
+  // ----------------------------------------------------------
+  // Cierre: agradecimiento / preguntas
+  // ----------------------------------------------------------
   {
     num: 'G2', seccion: 'Gracias', clase: 'portada cierre',
     html: `
@@ -233,13 +321,23 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
   },
 ];
 
+// ============================================================
+//  INICIALIZACIÓN
+//  Se ejecuta cuando el DOM está listo:
+//   1) Pinta navbar y footer
+//   2) Convierte el <main> en contenedor de presentación
+//   3) Genera todas las láminas y los controles
+//   4) Conecta botones y teclado
+// ============================================================
 document.addEventListener('DOMContentLoaded', () => {
   renderizarNavbar();
   renderizarFooter();
 
+  // El contenedor donde se inyectan las láminas
   const contenedor = document.querySelector('main.container');
   contenedor.classList.add('presentacion');
 
+  // Se genera el HTML de todas las láminas + controles de navegación
   contenedor.innerHTML = `
     ${LAMINAS.map((lamina, i) => `
       <section class="lamina ${lamina.clase || ''}" id="lamina-${i + 1}" aria-label="Lámina ${i + 1} de ${LAMINAS.length}" hidden>
@@ -256,23 +354,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const laminas = contenedor.querySelectorAll('.lamina');
   const contador = contenedor.querySelector('#contador');
-  let actual = 0;
+  let actual = 0; // índice de la lámina visible
 
+  // Muestra la lámina n, respetando los límites del array
   function mostrar(n) {
     actual = Math.max(0, Math.min(laminas.length - 1, n));
     laminas.forEach((lamina, i) => { lamina.hidden = i !== actual; });
     contador.textContent = `${actual + 1} / ${laminas.length}`;
   }
 
+  // Alterna entre pantalla completa y modo normal
   function pantallaCompleta() {
     if (document.fullscreenElement) document.exitFullscreen();
     else contenedor.requestFullscreen();
   }
 
+  // Botones de navegación y pantalla completa
   contenedor.querySelector('#anterior').addEventListener('click', () => mostrar(actual - 1));
   contenedor.querySelector('#siguiente').addEventListener('click', () => mostrar(actual + 1));
   contenedor.querySelector('#completa').addEventListener('click', pantallaCompleta);
 
+  // Atajos de teclado para navegar la presentación
   document.addEventListener('keydown', (e) => {
     if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); mostrar(actual + 1); }
     if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); mostrar(actual - 1); }
@@ -281,5 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'f' || e.key === 'F') pantallaCompleta();
   });
 
+  // Arranca en la primera lámina
   mostrar(0);
 });
