@@ -67,3 +67,4 @@ git push origin develop
 También se puede usar el botón **Sync fork** en la página de tu fork.
 
 > Las GitHub Actions vienen desactivadas en los forks. La validación se ejecuta en el pull request del repositorio principal.
+> 
