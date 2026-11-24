@@ -1,63 +1,30 @@
-
-// Importa los estilos generales del sitio web.
 import './styles/style.css';
-
-// Importa los estilos específicos de la página de investigación.
 import './styles/investigacion.css';
-
-// Importa los estilos del buscador interactivo de comandos Git.
 import './styles/command-search.css';
-
-// Importa los estilos de los cuadros informativos y advertencias.
 import './styles/callout.css';
-
-// Importa las funciones que construyen la barra de navegación y el pie de página.
 import { renderizarNavbar, renderizarFooter } from './components/layout.js';
-
-// Importa el archivo JSON que contiene todos los comandos Git.
 import commandsAll from './data/commands-all.json';
-
-// Importa la función que genera el buscador interactivo de comandos.
 import { renderCommandSearch } from './components/CommandSearch.js';
-
-// Importa la función que genera cuadros informativos y advertencias.
 import { renderCallout } from './components/Callout.js';
 
-// Define la dirección del repositorio principal del grupo.
 const REPO_GITHUB = 'https://github.com/sampedro2002/versionamiento-web';
-
-// Construye el enlace directo al archivo que sincroniza GitHub con GitLab.
 const WORKFLOW_SYNC = `${REPO_GITHUB}/blob/main/.github/workflows/sync-gitlab.yml`;
-
-// Define el enlace al repositorio del prototipo desarrollado anteriormente.
 const PROTOTIPO_GH = 'https://github.com/jhon-avila135/investigacion-versionamiento';
-
-// Define el enlace al proyecto del prototipo alojado en GitLab.
 const PROTOTIPO_GL = 'https://gitlab.com/grupo2-versionamiento-uce/investigacion-versionamiento';
 
-// Espera a que el documento HTML esté completamente cargado.
 document.addEventListener('DOMContentLoaded', () => {
-
-  // Construye la barra de navegación y el pie de página.
   renderizarNavbar();
   renderizarFooter();
 
-  // Busca el elemento principal del documento que tiene la clase container.
   const contenedor = document.querySelector('main.container');
-
-  // Agrega la clase investigacion para aplicar los estilos CSS de esta página.
   contenedor.classList.add('investigacion');
 
-  // Construye dinámicamente todo el contenido HTML de la investigación.
   contenedor.innerHTML = `
-
-    <!-- Encabezado principal de la investigación. -->
     <header class="encabezado-investigacion">
       <h1>GitHub y GitLab: análisis comparativo</h1>
       <p>Diferencias de modelo, despliegue continuo, reglas de protección, gestión de variables, comandos y cuentas educativas · Arquitectura de Software · Grupo 2</p>
     </header>
 
-    <!-- Índice con enlaces internos para desplazarse a las secciones del documento. -->
     <nav class="indice" aria-label="Contenido de la investigación">
       <p>Contenido</p>
       <ol>
@@ -74,12 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
       </ol>
     </nav>
 
-    <!-- SECCIÓN 1: compara las características generales de GitHub y GitLab. -->
     <section id="diferencias">
       <h2><span class="num">1.</span>Diferencias de modelo</h2>
       <p>Ambas plataformas alojan repositorios Git, pero parten de enfoques distintos. GitHub se organiza alrededor de una comunidad y de un ecosistema de integraciones reutilizables (Actions y Marketplace). GitLab se plantea como una aplicación única para todo el ciclo DevSecOps y ofrece una edición comunitaria instalable en servidores propios.</p>
-
-      <!-- Tabla comparativa de las características técnicas de ambas plataformas. -->
       <div class="tabla">
         <table>
           <caption><strong>Tabla 1.</strong> Diferencias técnicas relevantes entre GitHub y GitLab.</caption>
@@ -126,18 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </section>
 
-    <!-- SECCIÓN 2: explica las alternativas de despliegue utilizadas en el proyecto. -->
     <section id="despliegue">
       <h2><span class="num">2.</span>Despliegue en cada plataforma</h2>
 
-      <!-- Subapartado 2.1: explica la integración entre GitHub Actions y Cloudflare Pages. -->
       <h3><span class="num">2.1</span>Flujo del proyecto: GitHub Actions y Cloudflare Pages</h3>
       <p>En este proyecto (<code>versionamiento-web</code>), construido como aplicación multipágina con <strong>Vite</strong> y <strong>pnpm</strong> (<code>index.html</code>, <code>informe.html</code>, <code>investigacion.html</code>, <code>presentacion.html</code> y <code>recursos.html</code>), GitHub actúa como repositorio principal. Cada aporte sigue el flujo <code>feature/*</code> &rarr; <code>develop</code> &rarr; <code>test</code> &rarr; <code>main</code>.</p>
-
-      <!-- Enlace al workflow responsable de sincronizar los repositorios. -->
       <p>Un workflow de GitHub Actions (<a href="${WORKFLOW_SYNC}" target="_blank" rel="noopener"><code>sync-gitlab.yml</code></a>) se dispara ante cada <code>push</code> a <code>main</code>, <code>develop</code> o <code>test</code> y replica en GitLab todas las ramas disponibles en <code>origin</code> (eliminando con <code>--prune</code> las que ya no existan), utilizando el secreto <code>GITLAB_TOKEN</code>:</p>
-
-      <!-- Ejemplo de configuración YAML del workflow de sincronización. -->
       <pre><code>on:
   push:
     branches: [main, develop, test]
@@ -152,26 +110,18 @@ jobs:
       - run: |
           git remote add gitlab https://oauth2:\${{ secrets.GITLAB_TOKEN }}@gitlab.com/sampedro2002/versionamiento-web.git
           git push gitlab --force --prune "refs/remotes/origin/*:refs/heads/*"</code></pre>
-
-      <!-- Explica cómo Cloudflare compila y publica las dos réplicas del proyecto. -->
       <p>A partir de ambas réplicas, <strong>Cloudflare Pages</strong> ejecuta <code>pnpm run build</code> (que compila el sitio con Vite en <code>dist/</code>) y publica de forma independiente la versión conectada a GitHub y la conectada a GitLab.</p>
 
-      <!-- Subapartado 2.2: compara el despliegue externo con los servicios nativos de cada plataforma. -->
       <h3><span class="num">2.2</span>Comparación con despliegue nativo (Pages de cada plataforma)</h3>
       <p>En el prototipo previo del equipo (<a href="${PROTOTIPO_GH}" target="_blank" rel="noopener">GitHub</a> y <a href="${PROTOTIPO_GL}" target="_blank" rel="noopener">GitLab</a>), se evaluó el despliegue nativo sin proveedor externo: GitHub Actions usó <code>actions/upload-pages-artifact@v3</code> y <code>actions/deploy-pages@v4</code> con token OIDC temporal (<code>id-token: write</code>), mientras que GitLab CI empleó un job <code>pages</code> restringido por <code>rules: if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</code>.</p>
-
-      <!-- Recuadro destacado para resaltar la diferencia principal entre las alternativas. -->
       <div class="destacado">
         <p><strong>Diferencia clave:</strong> mientras GitHub Pages y GitLab Pages requieren definir pipelines propios en cada plataforma, Cloudflare Pages unifica la compilación de Vite (<code>pnpm run build</code> &rarr; <code>dist</code>) y ofrece entornos de vista previa por rama y producción en <code>main</code>.</p>
       </div>
     </section>
 
-    <!-- SECCIÓN 3: compara los mecanismos de protección de ramas. -->
     <section id="reglas">
       <h2><span class="num">3.</span>Reglas de protección</h2>
       <p>Para evitar cambios directos sin revisión sobre las ramas de integración y producción (<code>develop</code>, <code>test</code> y <code>main</code>), ambas plataformas ofrecen controles equivalentes con distinto nivel de licencia:</p>
-
-      <!-- Tabla que compara los mecanismos de protección disponibles en cada plataforma. -->
       <div class="tabla">
         <table>
           <caption><strong>Tabla 2.</strong> Mecanismos de protección de ramas en GitHub y GitLab.</caption>
@@ -216,10 +166,7 @@ jobs:
           </tbody>
         </table>
       </div>
-
       <p>En GitHub Free, las reglas de protección aplican a repositorios públicos; en repositorios privados requieren GitHub Pro, incluido en GitHub Education.</p>
-
-      <!-- Genera una advertencia sobre las limitaciones de GitHub Free en repositorios privados. -->
       ${renderCallout({
         tipo: 'warning',
         titulo: 'GitHub Free + repositorio privado',
@@ -228,11 +175,8 @@ jobs:
       })}
     </section>
 
-    <!-- SECCIÓN 4: compara cómo se administran las variables y los secretos. -->
     <section id="variables">
       <h2><span class="num">4.</span>Variables y gestión de despliegues</h2>
-
-      <!-- Tabla comparativa de variables, secretos y control de ejecuciones simultáneas. -->
       <div class="tabla">
         <table>
           <caption><strong>Tabla 3.</strong> Gestión de variables, secretos y concurrencia.</caption>
@@ -277,17 +221,12 @@ jobs:
           </tbody>
         </table>
       </div>
-
-      <!-- Explica el uso del secreto de autenticación y el procedimiento de reversión. -->
       <p>En este proyecto, el token de acceso hacia GitLab se almacena como secreto (<code>secrets.GITLAB_TOKEN</code>) en GitHub, de modo que nunca queda expuesto en el código fuente ni en los registros de ejecución. Ante un fallo publicado en producción, la reversión segura se realiza con <code>git revert</code> (o la opción <em>Revert</em> del Pull Request en GitHub), generando un nuevo commit sin reescribir el historial de <code>main</code>.</p>
     </section>
 
-    <!-- SECCIÓN 5: presenta los comandos Git utilizados durante el trabajo colaborativo. -->
     <section id="comandos">
       <h2><span class="num">5.</span>Comandos principales</h2>
       <p>El trabajo colaborativo por ramas, la integración hacia <code>develop</code> / <code>test</code> / <code>main</code> y la sincronización entre remotos se apoya en los siguientes comandos:</p>
-
-      <!-- Tabla que explica la utilidad de cada comando Git. -->
       <div class="tabla">
         <table>
           <caption><strong>Tabla 4.</strong> Comandos Git utilizados en el flujo del proyecto.</caption>
@@ -333,11 +272,7 @@ jobs:
           </tbody>
         </table>
       </div>
-
-      <!-- Espacio reservado para insertar el buscador interactivo de comandos Git. -->
       <div id="slot-buscador-comandos"></div>
-
-      <!-- Genera una advertencia sobre el uso del comando git reset --hard. -->
       ${renderCallout({
         tipo: 'warning',
         titulo: 'Precaución antes de ejecutar git reset --hard',
@@ -346,12 +281,9 @@ jobs:
       })}
     </section>
 
-    <!-- SECCIÓN 6: compara los beneficios de las cuentas educativas. -->
     <section id="educacion">
       <h2><span class="num">6.</span>Cuentas educativas</h2>
       <p>El uso de cuentas con correo institucional presenta una diferencia estructural: GitHub otorga los beneficios directamente al estudiante, mientras que GitLab los otorga a través de la institución.</p>
-
-      <!-- Primera tabla: comparación de GitHub Free y GitHub Education. -->
       <div class="tabla">
         <table>
           <caption><strong>Tabla 5.</strong> GitHub Free frente a GitHub Education.</caption>
@@ -396,8 +328,6 @@ jobs:
           </tbody>
         </table>
       </div>
-
-      <!-- Segunda tabla: comparación de GitLab Free y GitLab for Education. -->
       <div class="tabla">
         <table>
           <caption><strong>Tabla 6.</strong> GitLab Free frente a GitLab for Education.</caption>
@@ -437,16 +367,11 @@ jobs:
           </tbody>
         </table>
       </div>
-
-      <!-- Conclusión sobre las diferencias de acceso a beneficios educativos. -->
       <p>En consecuencia, el correo universitario mejora de inmediato las capacidades en GitHub, mientras que en GitLab la cuenta individual opera bajo el plan Free salvo que la universidad gestione la licencia institucional.</p>
     </section>
 
-    <!-- SECCIÓN 7: documenta los problemas y observaciones encontrados durante la implementación. -->
     <section id="hallazgos">
       <h2><span class="num">7.</span>Hallazgos de la implementación</h2>
-
-      <!-- Lista de hallazgos técnicos y sus explicaciones. -->
       <dl>
         <dt>Separación entre Workers y Pages en Cloudflare</dt>
         <dd>El asistente inicial de Cloudflare orienta el flujo hacia <em>Workers</em> (<code>npx wrangler deploy</code>). Para un sitio estático compilado con Vite, fue necesario seleccionar explícitamente el flujo de <strong>Cloudflare Pages</strong> con <code>pnpm run build</code> y directorio de salida <code>dist</code>.</dd>
@@ -465,11 +390,8 @@ jobs:
       </dl>
     </section>
 
-    <!-- SECCIÓN 8: presenta recomendaciones según las necesidades de cada proyecto. -->
     <section id="seleccion">
       <h2><span class="num">8.</span>Criterios de selección</h2>
-
-      <!-- Tabla de escenarios y plataforma recomendada. -->
       <div class="tabla">
         <table>
           <caption><strong>Tabla 7.</strong> Escenarios recomendados para cada plataforma.</caption>
@@ -507,16 +429,11 @@ jobs:
           </tbody>
         </table>
       </div>
-
-      <!-- Explica que ambas plataformas pueden utilizarse de manera complementaria. -->
       <p>Ambas plataformas no son excluyentes: en este proyecto GitHub funciona como repositorio principal de colaboración y GitLab como réplica sincronizada, permitiendo comparar el despliegue continuo desde ambos orígenes.</p>
     </section>
 
-    <!-- SECCIÓN 9: resume los resultados obtenidos en la investigación. -->
     <section id="conclusiones">
       <h2><span class="num">9.</span>Conclusiones</h2>
-
-      <!-- Lista ordenada con las conclusiones principales del trabajo. -->
       <ol>
         <li>GitHub y GitLab resuelven las mismas necesidades de versionamiento e integración continua con modelos distintos: eventos y ecosistema de acciones frente a etapas secuenciales y plataforma integrada.</li>
         <li>Adoptar una estrategia de ramas (<code>feature/*</code> &rarr; <code>develop</code> &rarr; <code>test</code> &rarr; <code>main</code>) junto con despliegue automático en Cloudflare Pages permite validar integraciones antes de publicarlas en producción.</li>
@@ -524,11 +441,8 @@ jobs:
       </ol>
     </section>
 
-    <!-- SECCIÓN 10: contiene las fuentes bibliográficas utilizadas en la investigación. -->
     <section id="referencias">
       <h2><span class="num">10.</span>Referencias</h2>
-
-      <!-- Lista de libros, documentación oficial, normas y encuestas consultadas. -->
       <ul>
         <li>Forsgren, N., Humble, J. y Kim, G. (2018). <em>Accelerate: The Science of Lean Software and DevOps</em>. IT Revolution.</li>
         <li>GitHub. (2025). <em>Octoverse 2025</em>. https://github.blog/news-insights/octoverse/</li>
@@ -538,15 +452,9 @@ jobs:
         <li>ISO/IEC/IEEE. (2018). <em>ISO/IEC/IEEE 29148:2018. Systems and software engineering — Requirements engineering</em>.</li>
         <li>Stack Overflow. (2022). <em>Developer Survey 2022</em>. https://survey.stackoverflow.co/2022</li>
       </ul>
-
-      <!-- Indica la fecha de referencia de los planes y beneficios mencionados. -->
       <p class="nota">Los planes, cuotas y beneficios citados corresponden a noviembre de 2026 y pueden cambiar.</p>
     </section>
   `;
 
-  // Busca el elemento HTML reservado para el buscador de comandos.
-  // Luego llama a renderCommandSearch y le entrega:
-  // 1. El elemento donde debe aparecer el buscador.
-  // 2. Los datos importados desde commands-all.json.
   renderCommandSearch(document.getElementById('slot-buscador-comandos'), commandsAll);
 });

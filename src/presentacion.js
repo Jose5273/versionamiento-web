@@ -1,22 +1,11 @@
-
-// Importa los estilos generales que utiliza todo el sitio web.
 import './styles/style.css';
-
-// Importa los estilos específicos de la presentación y sus diapositivas.
 import './styles/presentacion.css';
-
-// Importa las funciones que generan la barra de navegación y el pie de página.
 import { renderizarNavbar, renderizarFooter } from './components/layout.js';
 
-// Array principal de la presentación.
-// Cada objeto representa una diapositiva y contiene su número, sección,
-// una clase CSS opcional y el contenido HTML que se mostrará.
 // num: número de sección · seccion: nombre corto · clase: estilo especial · html: contenido
 const LAMINAS = [
   {
-    // Diapositiva de portada: presenta el proyecto y sus integrantes.
     num: 'G2', seccion: 'Arquitectura de Software', clase: 'portada',
-    // Contenido HTML de la portada.
     html: `
       <h1>Gestión de versionamiento</h1>
       <p class="destacada">GitHub y GitLab en un proyecto real, construido en equipo.</p>
@@ -25,7 +14,6 @@ const LAMINAS = [
       </div>`,
   },
   {
-    // Diapositiva que presenta el índice de temas de la exposición.
     num: '00', seccion: 'Contenido',
     html: `
       <h2>Lo que vamos a ver</h2>
@@ -44,7 +32,6 @@ const LAMINAS = [
       </div>`,
   },
   {
-    // Diapositiva de contexto: presenta cifras relacionadas con Git.
     num: '01', seccion: 'Contexto',
     html: `
       <h2>Git es el estándar</h2>
@@ -55,7 +42,6 @@ const LAMINAS = [
       </div>`,
   },
   {
-    // Diapositiva que explica cómo se aplicó el versionamiento en el proyecto.
     num: '01', seccion: 'Caso práctico',
     html: `
       <h2>Este sitio es el ejemplo</h2>
@@ -67,7 +53,6 @@ const LAMINAS = [
       </ul>`,
   },
   {
-    // Diapositiva que compara las características generales de GitHub y GitLab.
     num: '02', seccion: 'Diferencias',
     html: `
       <h2>Mismo Git, distinto modelo</h2>
@@ -82,7 +67,6 @@ const LAMINAS = [
       </table>`,
   },
   {
-    // Diapositiva que explica la sincronización automática entre repositorios.
     num: '03', seccion: 'Despliegue',
     html: `
       <h2>Réplica automática en GitLab</h2>
@@ -96,7 +80,6 @@ jobs:
       - run: git push gitlab --force --prune ...</code></pre>`,
   },
   {
-    // Diapositiva que muestra un ejemplo de pipeline de GitHub Actions.
     num: '03', seccion: 'Despliegue',
     html: `
       <h2><span class="gh">GitHub</span> Actions hacia Pages</h2>
@@ -111,7 +94,6 @@ jobs:
       - uses: actions/deploy-pages@v4</code></pre>`,
   },
   {
-    // Diapositiva que muestra un ejemplo de pipeline de GitLab CI.
     num: '03', seccion: 'Despliegue',
     html: `
       <h2><span class="gl">GitLab</span> CI hacia Pages</h2>
@@ -124,7 +106,6 @@ pages:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</code></pre>`,
   },
   {
-    // Diapositiva que resume las reglas de protección de las ramas.
     num: '04', seccion: 'Reglas',
     html: `
       <h2>Nadie fusiona solo</h2>
@@ -138,7 +119,6 @@ pages:
       </table>`,
   },
   {
-    // Diapositiva que presenta una demostración de una validación fallida.
     num: '04', seccion: 'Demostración',
     html: `
       <h2>Un cambio roto no entra</h2>
@@ -152,7 +132,6 @@ pages:
       </div>`,
   },
   {
-    // Diapositiva que compara la gestión de variables y secretos.
     num: '05', seccion: 'Variables',
     html: `
       <h2>La configuración vive fuera del código</h2>
@@ -166,7 +145,6 @@ pages:
       </table>`,
   },
   {
-    // Diapositiva que muestra comandos Git utilizados durante el desarrollo.
     num: '05', seccion: 'Comandos',
     html: `
       <h2>El día a día en Git</h2>
@@ -178,7 +156,6 @@ git revert HEAD
 git tag -a v1.0.0 -m "entrega"</code></pre>`,
   },
   {
-    // Diapositiva que compara los beneficios de las cuentas educativas.
     num: '06', seccion: 'Cuentas educativas',
     html: `
       <h2>El correo institucional pesa distinto</h2>
@@ -194,7 +171,6 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
       </div>`,
   },
   {
-    // Diapositiva que muestra los tiempos de publicación medidos.
     num: '07', seccion: 'Resultados',
     html: `
       <h2>Tiempo hasta ver el cambio publicado</h2>
@@ -204,7 +180,6 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
       </div>`,
   },
   {
-    // Diapositiva que resume los problemas y aprendizajes encontrados.
     num: '07', seccion: 'Hallazgos',
     html: `
       <h2>Lo que aprendimos en el camino</h2>
@@ -216,7 +191,6 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
       </ul>`,
   },
   {
-    // Diapositiva que presenta los escenarios en los que conviene utilizar cada plataforma.
     num: '07', seccion: 'Decisión',
     html: `
       <h2>¿Cuál elegir?</h2>
@@ -232,7 +206,6 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
       </div>`,
   },
   {
-    // Diapositiva que presenta las conclusiones principales de la exposición.
     num: '07', seccion: 'Conclusiones',
     html: `
       <h2>Para llevar</h2>
@@ -243,7 +216,6 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
       </ol>`,
   },
   {
-    // Diapositiva que reúne las referencias bibliográficas.
     num: '—', seccion: 'Referencias',
     html: `
       <h2>Referencias</h2>
@@ -254,7 +226,6 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
       </ul>`,
   },
   {
-    // Diapositiva final de cierre de la presentación.
     num: 'G2', seccion: 'Gracias', clase: 'portada cierre',
     html: `
       <h2>¿Preguntas?</h2>
@@ -262,37 +233,20 @@ git tag -a v1.0.0 -m "entrega"</code></pre>`,
   },
 ];
 
-// Espera a que el documento HTML esté completamente cargado.
 document.addEventListener('DOMContentLoaded', () => {
-
-  // Genera la barra de navegación y el pie de página.
   renderizarNavbar();
   renderizarFooter();
 
-  // Busca el contenedor principal de la página.
-  const contenedor = document.querySelector('main.container');
-
-  // Agrega la clase presentacion para aplicar los estilos específicos de las diapositivas.
   const contenedor = document.querySelector('main.container');
   contenedor.classList.add('presentacion');
 
-  // Genera dinámicamente todas las diapositivas a partir del array LAMINAS.
-  // Cada objeto del array se transforma en una sección HTML independiente.
-  // La diapositiva comienza oculta mediante el atributo hidden.
   contenedor.innerHTML = `
     ${LAMINAS.map((lamina, i) => `
       <section class="lamina ${lamina.clase || ''}" id="lamina-${i + 1}" aria-label="Lámina ${i + 1} de ${LAMINAS.length}" hidden>
-        <!-- Identificador de la sección y nombre de la diapositiva. -->
         <p class="marca"><b>${lamina.num}</b>${lamina.seccion}</p>
-
-        <!-- Inserta el contenido HTML definido en el objeto de la diapositiva. -->
         ${lamina.html}
-
-        <!-- Muestra el número de diapositiva actual y el total. -->
         <span class="pagina">${i + 1} / ${LAMINAS.length}</span>
       </section>`).join('')}
-
-    <!-- Controles que permiten navegar entre las diapositivas. -->
     <div class="controles">
       <button type="button" id="anterior" aria-label="Lámina anterior">←</button>
       <output id="contador" aria-live="polite"></output>
@@ -300,74 +254,32 @@ document.addEventListener('DOMContentLoaded', () => {
       <button type="button" class="texto" id="completa">Pantalla completa</button>
     </div>`;
 
-  // Obtiene todas las diapositivas que se generaron dentro del contenedor.
   const laminas = contenedor.querySelectorAll('.lamina');
-
-  // Obtiene el elemento que mostrará el número de la diapositiva actual.
   const contador = contenedor.querySelector('#contador');
-
-  // Variable que almacena la posición de la diapositiva que se está mostrando.
-  // Comienza en cero porque los índices de las listas en JavaScript empiezan en cero.
   let actual = 0;
 
-  // Función encargada de mostrar una diapositiva según el índice recibido.
   function mostrar(n) {
-
-    // Limita el índice para evitar valores menores que cero
-    // o mayores que la cantidad de diapositivas disponibles.
     actual = Math.max(0, Math.min(laminas.length - 1, n));
-
-    // Recorre todas las diapositivas y controla cuál debe estar visible.
-    // La diapositiva cuyo índice coincide con actual se muestra.
-    // Las demás permanecen ocultas.
     laminas.forEach((lamina, i) => { lamina.hidden = i !== actual; });
-
-    // Actualiza el contador con la posición actual y el total de diapositivas.
-    // Se suma uno porque el usuario cuenta desde la diapositiva 1, no desde cero.
     contador.textContent = `${actual + 1} / ${laminas.length}`;
   }
 
-  // Función que activa o desactiva el modo de pantalla completa.
   function pantallaCompleta() {
-
-    // Comprueba si actualmente existe un elemento en pantalla completa.
     if (document.fullscreenElement) document.exitFullscreen();
-
-    // Si no hay ningún elemento en pantalla completa, solicita
-    // que el contenedor de la presentación ocupe toda la pantalla.
     else contenedor.requestFullscreen();
   }
 
-  // Evento del botón anterior: muestra la diapositiva previa.
-  // Si ya estamos en la primera, la función mostrar() evita retroceder más.
   contenedor.querySelector('#anterior').addEventListener('click', () => mostrar(actual - 1));
-
-  // Evento del botón siguiente: muestra la diapositiva posterior.
-  // Si estamos en la última, la función mostrar() evita avanzar más.
   contenedor.querySelector('#siguiente').addEventListener('click', () => mostrar(actual + 1));
-
-  // Evento del botón de pantalla completa.
   contenedor.querySelector('#completa').addEventListener('click', pantallaCompleta);
 
-  // Escucha las pulsaciones del teclado para permitir controlar la presentación.
   document.addEventListener('keydown', (e) => {
-
-    // Flecha derecha, PageDown o barra espaciadora: avanza una diapositiva.
     if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); mostrar(actual + 1); }
-
-    // Flecha izquierda o PageUp: retrocede una diapositiva.
     if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); mostrar(actual - 1); }
-
-    // Tecla Home: regresa directamente a la primera diapositiva.
     if (e.key === 'Home') mostrar(0);
-
-    // Tecla End: salta directamente a la última diapositiva.
     if (e.key === 'End') mostrar(laminas.length - 1);
-
-    // Tecla F: activa o desactiva el modo de pantalla completa.
     if (e.key === 'f' || e.key === 'F') pantallaCompleta();
   });
 
-  // Al cargar la página, muestra la primera diapositiva.
   mostrar(0);
 });

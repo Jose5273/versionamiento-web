@@ -1,57 +1,37 @@
-
-# Nombre del flujo de trabajo que aparecerá en GitHub Actions.
 name: CI Tests
 
-# Define los eventos que activarán automáticamente este flujo.
 on:
-  # Se ejecuta cuando alguien sube cambios (push) a la rama llamada "test".
   push:
     branches:
       - test
-
-  # También se ejecuta cuando alguien crea o actualiza una Pull Request cuyo destino sea "test" o "main".
   pull_request:
     branches:
       - test
       - main
 
 jobs:
-
-  # Nombre del trabajo: test.
   test:
-
-    # Define el sistema operativo de la máquina virtual donde se ejecutarán los comandos.
     runs-on: ubuntu-latest
-
-    # Lista de pasos que se ejecutarán en orden.
     steps:
-
-      # PASO 1: Descargar el código del repositorio.
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # PASO 2: Instalar y configurar pnpm versión 9. pnpm es un administrador de paquetes para Node.js.
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      # PASO 3: Configurar Node.js versión 22. También habilita el almacenamiento en caché de las dependencias instaladas mediante pnpm.
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
 
-      # PASO 4: Instalar las dependencias del proyecto.
-      # --frozen-lockfile evita modificar pnpm-lock.yaml y comprueba que las dependencias coincidan con él.
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # PASO 5: Ejecutar las pruebas automatizadas. Ejecuta el script "test" definido en package.json.
       - name: Run tests
         run: pnpm test
 
-      # PASO 6: Construir el proyecto. Ejecuta el script "build" definido en package.json.
       - name: Build project
         run: pnpm run build
