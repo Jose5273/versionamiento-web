@@ -1,26 +1,51 @@
+
+# Nombre del flujo de trabajo que aparecerá en GitHub Actions.
 name: Sync to GitLab
 
+# Define cuándo se ejecutará automáticamente este proceso.
 on:
+  # Se activa cada vez que se suben cambios (push) a cualquiera de las siguientes ramas.
   push:
     branches:
       - main
       - develop
       - test
 
+# Define los trabajos que realizará GitHub Actions.
 jobs:
+
+  # Nombre del trabajo encargado de sincronizar los repositorios.
   sync:
+
+    # Utiliza una máquina virtual con Ubuntu.
     runs-on: ubuntu-latest
+
+    # Pasos que se ejecutarán para realizar la sincronización.
     steps:
+
+      # PASO 1: Descargar el repositorio de GitHub.
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          # Descarga todo el historial de Git, incluyendo todas las ramas y etiquetas.
+          # El valor 0 significa historial completo.
           fetch-depth: 0
 
+      # PASO 2: Enviar los cambios del repositorio de GitHub hacia el repositorio de GitLab.
       - name: Push to GitLab
         run: |
-          # Configuramos el remoto usando el token guardado en GitHub
+
+          # Agregamos GitLab como un nuevo repositorio remoto.
+          # Utilizamos un token almacenado en los secretos de GitHub
+          # para autenticar la conexión sin escribir la contraseña.
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/sampedro2002/versionamiento-web.git
-          
-          # Empujamos todas las ramas
+
+          # Enviamos todas las ramas locales que representan
+          # las ramas remotas de GitHub hacia GitLab.
+          # --force permite sobrescribir el historial remoto si es necesario.
+          # --prune elimina referencias remotas que ya no existen en origen.
           git push gitlab --force --prune "refs/remotes/origin/*:refs/heads/*"
+
+          # Enviamos todas las etiquetas (tags) de GitHub a GitLab.
+          # --force permite actualizar etiquetas existentes si es necesario.
           git push gitlab --force --tags
