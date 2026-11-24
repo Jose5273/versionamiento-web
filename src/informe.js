@@ -1,39 +1,16 @@
-
-// Importa los estilos CSS generales del proyecto.
 import './styles/style.css';
-
-// Importa los estilos específicos de la página del informe.
 import './styles/informe.css';
-
-// Importa los estilos para mostrar los modelos de ramas.
 import './styles/branch-models.css';
-
-// Importa los estilos del gráfico de Conventional Commits.
 import './styles/conventional-chart.css';
-
-// Importa los estilos de los cuadros informativos o llamadas de atención.
 import './styles/callout.css';
-
-// Importa las funciones encargadas de construir la barra de navegación y el pie de página.
 import { renderizarNavbar, renderizarFooter } from './components/layout.js';
-
-// Importa los datos JSON sobre los modelos de organización de ramas.
 import branchModelsData from './data/branch-models.json';
-
-// Importa los datos JSON sobre los tipos de Conventional Commits.
 import conventionalData from './data/conventional-commits.json';
-
-// Importa la función que genera las etiquetas visuales de los modelos de ramas.
 import { renderBranchModelBadges } from './components/BranchModelBadges.js';
-
-// Importa la función que construye el gráfico de distribución de Conventional Commits.
 import { renderConventionalChart } from './components/ConventionalChart.js';
-
-// Importa la función que genera cuadros informativos con diferentes niveles de importancia.
 import { renderCallout } from './components/Callout.js';
 
-// Enlaces usados en la página (se definen una sola vez para no repetirlos).
-// Se almacenan en constantes para reutilizarlos en diferentes secciones del informe.
+// Enlaces usados en la página (se definen una sola vez para no repetirlos)
 const REPO_GRUPO = 'https://github.com/sampedro2002/versionamiento-web';
 const SITIO_GH = 'https://versionamiento-web-github.pages.dev/';
 const SITIO_GL = 'https://versionamiento-web-gitlab.pages.dev/';
@@ -41,27 +18,19 @@ const PROTOTIPO = 'https://github.com/jhon-avila135/investigacion-versionamiento
 const PROTOTIPO_SITIO_GH = 'https://jhon-avila135.github.io/investigacion-versionamiento/';
 const PROTOTIPO_SITIO_GL = 'https://grupo2-versionamiento-uce.gitlab.io/investigacion-versionamiento/';
 
-// Espera a que el documento HTML esté completamente cargado antes de construir el informe.
 document.addEventListener('DOMContentLoaded', () => {
-
-  // Construye la barra de navegación y el pie de página del sitio web.
   renderizarNavbar();
   renderizarFooter();
 
-  // Busca el elemento main que contiene la clase container.
   const contenedor = document.querySelector('main.container');
-
-  // Agrega la clase informe para aplicar los estilos específicos de esta página.
   contenedor.classList.add('informe');
 
-  // Construye dinámicamente el contenido HTML completo del informe.
   contenedor.innerHTML = `
     <header class="encabezado-informe">
       <h1>Informe del proyecto</h1>
       <p>Gestión de versionamiento con GitHub y GitLab · Arquitectura de Software · Grupo 2</p>
     </header>
 
-    <!-- Índice de navegación interna para acceder a las diferentes secciones del informe. -->
     <nav class="indice" aria-label="Contenido del informe">
       <p>Contenido</p>
       <ol>
@@ -77,14 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
       </ol>
     </nav>
 
-    <!-- Primera sección: presenta un resumen general del proyecto y sus antecedentes. -->
     <section id="resumen">
       <h2><span class="num">1.</span>Resumen</h2>
       <p>El proyecto compara GitHub y GitLab desde la práctica. El grupo construye un sitio web en un repositorio compartido: cada integrante desarrolla una página en su propia rama y la integra mediante pull requests. El repositorio se replica en GitLab y cada plataforma publica su versión del sitio.</p>
       <p>Como antecedente, se desarrolló un prototipo individual en el que se configuraron pipelines de validación y despliegue, reglas de protección de rama y mediciones del tiempo de publicación. Sus resultados se incluyen en este informe como evidencia.</p>
     </section>
 
-    <!-- Segunda sección: describe el objetivo general y los objetivos específicos. -->
     <section id="objetivos">
       <h2><span class="num">2.</span>Objetivos</h2>
       <h3>Objetivo general</h3>
@@ -98,55 +65,42 @@ document.addEventListener('DOMContentLoaded', () => {
       </ul>
     </section>
 
-    <!-- Tercera sección: explica cómo se organiza el despliegue del proyecto. -->
     <section id="arquitectura">
       <h2><span class="num">3.</span>Arquitectura del despliegue</h2>
       <p>GitHub es el repositorio principal. Cada aporte pasa de una rama de trabajo a <code>develop</code>, luego a <code>test</code> y finalmente a <code>main</code>. Un workflow de GitHub Actions replica las ramas en GitLab, y Cloudflare Pages publica el sitio a partir de cada repositorio.</p>
-
-      <!-- Figura SVG que representa visualmente el recorrido de los cambios entre ramas y plataformas. -->
       <figure>
         <svg viewBox="0 0 760 240" role="img" aria-labelledby="fig-flujo">
           <title id="fig-flujo">Recorrido de un cambio desde la rama de trabajo hasta los sitios publicados</title>
           <defs>
-            <!-- Define la punta de flecha que se utilizará en las conexiones del diagrama. -->
             <marker id="punta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
               <path d="M0 0 L10 5 L0 10 z" fill="#1a1d23"></path>
             </marker>
           </defs>
-
-          <!-- Grupo de elementos gráficos que componen el diagrama de arquitectura. -->
           <g font-family="system-ui, Segoe UI, sans-serif" font-size="13" fill="#1a1d23">
-            <!-- Representa la rama de trabajo de cada integrante. -->
             <rect x="15" y="90" width="115" height="54" rx="4" fill="#fff" stroke="#1a1d23"></rect>
             <text x="72" y="113" text-anchor="middle">feature/…</text>
             <text x="72" y="131" text-anchor="middle" fill="#5b6470">rama de trabajo</text>
 
-            <!-- Representa la rama de integración develop. -->
             <rect x="160" y="90" width="95" height="54" rx="4" fill="#eef3fe" stroke="#2563eb"></rect>
             <text x="207" y="113" text-anchor="middle">develop</text>
             <text x="207" y="131" text-anchor="middle" fill="#5b6470">integración</text>
 
-            <!-- Representa la rama utilizada para las pruebas. -->
             <rect x="285" y="90" width="95" height="54" rx="4" fill="#eef3fe" stroke="#2563eb"></rect>
             <text x="332" y="113" text-anchor="middle">test</text>
             <text x="332" y="131" text-anchor="middle" fill="#5b6470">pruebas</text>
 
-            <!-- Representa la rama principal del proyecto. -->
             <rect x="410" y="90" width="95" height="54" rx="4" fill="#eef3fe" stroke="#2563eb"></rect>
             <text x="457" y="113" text-anchor="middle">main</text>
             <text x="457" y="131" text-anchor="middle" fill="#5b6470">producción</text>
 
-            <!-- Representa el sitio publicado a partir del repositorio de GitHub. -->
             <rect x="560" y="20" width="185" height="54" rx="4" fill="#fff" stroke="#1a1d23"></rect>
             <text x="652" y="43" text-anchor="middle">Cloudflare Pages</text>
             <text x="652" y="61" text-anchor="middle" fill="#5b6470">sitio desde GitHub</text>
 
-            <!-- Representa la réplica del repositorio en GitLab y su publicación. -->
             <rect x="560" y="160" width="185" height="54" rx="4" fill="#fff" stroke="#1a1d23"></rect>
             <text x="652" y="183" text-anchor="middle">GitLab (réplica)</text>
             <text x="652" y="201" text-anchor="middle" fill="#5b6470">Cloudflare Pages</text>
 
-            <!-- Dibuja las conexiones y flechas entre los diferentes elementos del diagrama. -->
             <g stroke="#1a1d23" fill="none" marker-end="url(#punta)">
               <line x1="130" y1="117" x2="158" y2="117"></line>
               <line x1="255" y1="117" x2="283" y2="117"></line>
@@ -154,8 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
               <path d="M505 105 L530 105 L530 47 L558 47"></path>
               <path d="M505 129 L530 129 L530 187 L558 187"></path>
             </g>
-
-            <!-- Identifica el proceso de integración mediante pull requests y la sincronización con GitLab. -->
             <text x="145" y="80" font-size="11" fill="#5b6470">pull request</text>
             <text x="536" y="150" font-size="11" fill="#5b6470">sync-gitlab.yml</text>
           </g>
@@ -164,15 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
       </figure>
     </section>
 
-    <!-- Cuarta sección: explica la estrategia de ramas y los tipos de commits utilizados. -->
     <section id="flujo">
       <h2><span class="num">4.</span>Flujo de trabajo en Git</h2>
       <p>El grupo aplica una versión simplificada de GitFlow. Cada integrante crea su rama desde <code>develop</code>, registra sus cambios con mensajes de Conventional Commits y solicita la integración mediante un pull request.</p>
-
-      <!-- Espacio reservado para insertar las etiquetas de los modelos de ramas generadas con JavaScript. -->
       <div id="slot-badges-ramas"></div>
-
-      <!-- Tabla que describe la función de cada rama del repositorio. -->
       <div class="tabla">
         <table>
           <caption>Tabla 1. Ramas del repositorio y su función.</caption>
@@ -187,8 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </tbody>
         </table>
       </div>
-
-      <!-- Tabla que explica los prefijos de Conventional Commits y sus ejemplos. -->
       <div class="tabla">
         <table>
           <caption>Tabla 2. Tipos de commit utilizados (Conventional Commits).</caption>
@@ -206,17 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </tbody>
         </table>
       </div>
-
-      <!-- Espacio reservado para insertar el gráfico de distribución de Conventional Commits. -->
       <div id="slot-conventional-chart"></div>
     </section>
 
-    <!-- Quinta sección: documenta las reglas que protegen las ramas importantes. -->
     <section id="reglas">
       <h2><span class="num">5.</span>Reglas de protección</h2>
       <p>Las reglas de protección impiden que un cambio llegue a una rama importante sin revisión. El repositorio tiene configurados dos rulesets: uno para <code>main</code> y otro para <code>test</code> y <code>develop</code>.</p>
-
-      <!-- Tabla con las reglas de protección y el estado de cada una. -->
       <div class="tabla">
         <table>
           <caption>Tabla 3. Reglas configuradas por rama.</caption>
@@ -231,15 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
           </tbody>
         </table>
       </div>
-
       <p>Con estas reglas ningún integrante puede integrar su propio cambio sin la revisión de otro, y la rama de producción exige el acuerdo de dos personas.</p>
-
-      <!-- Destaca una evidencia del prototipo mediante un enlace al pull request correspondiente. -->
       <div class="destacado">
         <p><strong>Evidencia del prototipo.</strong> En el <a href="${PROTOTIPO}/pull/3" target="_blank" rel="noopener">PR #3</a> se eliminó a propósito el texto alternativo de una imagen: la validación falló y GitHub bloqueó la fusión. El mismo mecanismo de check obligatorio se incorpora a este repositorio.</p>
       </div>
-
-      <!-- Inserta un cuadro de advertencia sobre las limitaciones de las reglas de protección. -->
       ${renderCallout({
         tipo: 'danger',
         titulo: 'Público → privado desactiva protección sin avisar',
@@ -248,12 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
       })}
     </section>
 
-    <!-- Sexta sección: describe dónde se almacenan las variables y los secretos. -->
     <section id="variables">
       <h2><span class="num">6.</span>Variables y secretos</h2>
       <p>La configuración del despliegue se guarda en la plataforma, no en el código.</p>
-
-      <!-- Lista de definiciones para explicar los secretos y variables del proyecto. -->
       <dl>
         <dt>Secreto GITLAB_TOKEN (repositorio del grupo)</dt>
         <dd>Lo usa el workflow <code>sync-gitlab.yml</code> para autenticarse en GitLab y replicar las ramas. Está guardado como secreto de GitHub Actions: se cifra y no aparece en los registros.</dd>
@@ -262,8 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <dt>Variables predefinidas</dt>
         <dd>Cada plataforma ofrece datos del pipeline sin configuración: <code>GITHUB_SHA</code> en GitHub y <code>CI_COMMIT_SHORT_SHA</code> en GitLab.</dd>
       </dl>
-
-      <!-- Inserta una advertencia sobre los riesgos de seguridad del evento pull_request_target. -->
       ${renderCallout({
         tipo: 'danger',
         titulo: 'Riesgo crítico con pull_request_target',
@@ -272,12 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
       })}
     </section>
 
-    <!-- Séptima sección: presenta las mediciones de duración de los pipelines y publicación. -->
     <section id="mediciones">
       <h2><span class="num">7.</span>Mediciones</h2>
       <p>En el prototipo se midió el tiempo de entrega: desde que se aprueba un cambio hasta que el sitio publicado muestra la nueva versión. Es una de las métricas DORA (Forsgren, Humble y Kim, 2018).</p>
-
-      <!-- Tabla comparativa con las duraciones medidas en ambas plataformas. -->
       <div class="tabla">
         <table>
           <caption>Tabla 4. Tiempos medidos en el prototipo.</caption>
@@ -290,16 +217,11 @@ document.addEventListener('DOMContentLoaded', () => {
           </tbody>
         </table>
       </div>
-
-      <!-- Aclara que las mediciones disponibles todavía utilizan una muestra pequeña. -->
       <p class="nota">La muestra todavía es pequeña. La meta es reunir 20 mediciones por plataforma con los aportes de todo el grupo.</p>
     </section>
 
-    <!-- Octava sección: recoge los principales problemas y observaciones del proyecto. -->
     <section id="hallazgos">
       <h2><span class="num">8.</span>Hallazgos</h2>
-
-      <!-- Lista de hallazgos y sus respectivas explicaciones. -->
       <dl>
         <dt>Validación incompleta</dt>
         <dd>El preset estándar de html-validate no revisa accesibilidad; una imagen sin texto alternativo aprobaba la validación hasta que se probó la regla.</dd>
@@ -312,11 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
       </dl>
     </section>
 
-    <!-- Novena sección: proporciona enlaces a los repositorios, sitios publicados y archivos del proyecto. -->
     <section id="enlaces">
       <h2><span class="num">9.</span>Enlaces</h2>
-
-      <!-- Tabla que organiza los recursos externos del proyecto. -->
       <div class="tabla">
         <table>
           <caption>Tabla 5. Recursos del proyecto.</caption>
@@ -337,11 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
     </section>
   `;
 
-  // Busca el espacio reservado para los modelos de ramas e inserta sus etiquetas visuales.
-  // La función recibe el elemento HTML de destino y los datos importados desde branch-models.json.
   renderBranchModelBadges(document.getElementById('slot-badges-ramas'), branchModelsData);
-
-  // Busca el espacio reservado para el gráfico de Conventional Commits e inserta el gráfico.
-  // La función recibe el elemento HTML de destino y los datos importados desde conventional-commits.json.
   renderConventionalChart(document.getElementById('slot-conventional-chart'), conventionalData);
 });
